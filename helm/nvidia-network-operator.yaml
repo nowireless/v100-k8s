@@ -1,0 +1,17 @@
+apiVersion: helm.cattle.io/v1
+kind: HelmChart
+metadata:
+  name: nvidia-network-operator
+  namespace: kube-system
+spec:
+  repo: https://helm.ngc.nvidia.com/nvidia
+  chart: network-operator
+  version: v26.1.1
+  targetNamespace: nvidia-network-operator
+  createNamespace: true
+  valuesContent: |-
+    sriovNetworkOperator:
+      enabled: true
+    nfd:
+      # Provided by GPU operator
+      enabled: false

@@ -1,0 +1,22 @@
+apiVersion: helm.cattle.io/v1
+kind: HelmChart
+metadata:
+  name: node-problem-detector
+  namespace: kube-system
+spec:
+  chart:  oci://ghcr.io/deliveryhero/helm-charts/node-problem-detector
+  version: 2.4.1
+  targetNamespace: node-problem-detector
+  createNamespace: true
+  valuesContent: |-
+    settings:
+      # custom_monitor_definitions:
+      #   mnlx-interfaces.json: |
+      #     {
+
+      #     }
+      # custom_plugin_monitors:
+      #   - /config/mnlx-interfaces.json
+      # env:
+      #   - name: NVIDIA_VISIBLE_DEVICES
+      #     value: all

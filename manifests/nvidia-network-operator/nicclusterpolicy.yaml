@@ -1,0 +1,53 @@
+
+apiVersion: mellanox.com/v1alpha1
+kind: NicClusterPolicy
+metadata:
+  name: nic-cluster-policy
+spec:
+  ofedDriver:
+    image: doca-driver
+    repository: nvcr.io/nvidia/mellanox
+    version: doca3.3.0-26.01-1.0.0.0-0
+  rdmaSharedDevicePlugin:
+    image: k8s-rdma-shared-dev-plugin
+    repository: nvcr.io/nvidia/mellanox
+    version: network-operator-v26.1.1
+    config: |
+      {
+        "configList": [
+          {
+            "resourceName": "rdma_shared_device_a",
+            "rdmaHcaMax": 63,
+            "selectors": {
+              "ifNames": ["ibp6s0"]
+            }
+          },
+          {
+            "resourceName": "rdma_shared_device_b",
+            "rdmaHcaMax": 63,
+            "selectors": {
+              "ifNames": ["ibp7s0"]
+            }
+          }
+        ]
+      }
+  nvIpam:
+    image: nvidia-k8s-ipam
+    repository: nvcr.io/nvidia/mellanox
+    version: network-operator-v26.1.1
+    imagePullSecrets: []
+    enableWebhook: false
+  secondaryNetwork:
+    cniPlugins:
+      image: plugins
+      repository: nvcr.io/nvidia/mellanox
+      version: network-operator-v26.1.1
+    # Already have Multus installed
+    # multus:
+    #   image: multus-cni
+    #   repository: nvcr.io/nvidia/mellanox
+    #   version: network-operator-v26.1.1
+    ipoib:
+      image: ipoib-cni
+      repository: nvcr.io/nvidia/mellanox
+      version: network-operator-v26.1.1

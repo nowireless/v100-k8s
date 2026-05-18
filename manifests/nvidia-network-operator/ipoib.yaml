@@ -1,0 +1,39 @@
+---
+# All IPoIBNetwork defs pull IPs from this pool, as they are on the same fabric.
+# If we were trying to use the IPoIB network for non-rdma stuff (NFS, etc...)
+# then it would make sense to have separate pools/pkeys for each HBA (I think).
+apiVersion: nv-ipam.nvidia.com/v1alpha1
+kind: IPPool
+metadata:
+  name: ipoib-fabric-pool
+  namespace: nvidia-network-operator
+spec:
+  subnet: 192.168.255.0/24
+  gateway: 192.168.255.1
+  perNodeBlockSize: 50
+---
+apiVersion: mellanox.com/v1alpha1
+kind: IPoIBNetwork
+metadata:
+  name: ipoib-ibp6s0-default
+spec:
+  networkNamespace: default
+  master: ibp6s0
+  ipam: |
+    {
+      "type": "nv-ipam",
+      "poolName": "ipoib-fabric-pool"
+    }
+---
+apiVersion: mellanox.com/v1alpha1
+kind: IPoIBNetwork
+metadata:
+  name: ipoib-ibp7s0-default
+spec:
+  networkNamespace: default
+  master: ibp7s0
+  ipam: |
+    {
+      "type": "nv-ipam",
+      "poolName": "ipoib-fabric-pool"
+    }

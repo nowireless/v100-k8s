@@ -1,0 +1,28 @@
+# skopeo sync --override-os="linux" --override-arch="amd64"  --src yaml --dest docker --dest-tls-verify=false --scoped ./images/nvidia-operators.yaml 10.128.0.200:8050
+
+nvcr.io:
+  images:
+    nvidia/cuda:
+    - 13.0.0-cudnn-devel-ubuntu24.04
+    - 13.0.0-tensorrt-devel-ubuntu24.04
+    - 13.0.0-tensorrt-runtime-ubuntu24.04
+    - 13.0.0-cudnn-runtime-ubuntu24.04
+    - 13.0.0-devel-ubuntu24.04
+    - 13.0.0-runtime-ubuntu24.04
+    - 13.0.0-base-ubuntu24.04
+
+    nvidia/hpc-benchmarks:
+    - 26.02
+    - 25.09
+    - 25.04
+    - 25.02
+    - 24.09
+    - 24.06
+    - 24.03
+    - 23.10
+    - 23.5
+    - 23.3
+    - 21.4-hpl
+    - 21.4-hpcg
+    - 20.10-hpl
+    - 20.10-hpcg

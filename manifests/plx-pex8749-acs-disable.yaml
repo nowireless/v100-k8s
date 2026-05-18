@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: plx-pex8749-acs-disable
+  namespace: gpu-operator
+spec:
+  selector:
+    matchLabels:
+      app: plx-pex8749-acs-disable
+  template:
+    metadata:
+      labels:
+        app: plx-pex8749-acs-disable
+    spec:
+      hostPID: true
+      hostNetwork: true
+      nodeSelector:
+        plx.feature.node.kubernetes.io/pex8749: "true"
+      tolerations:
+        - operator: Exists
+      containers:
+        - name: plx-acs-disable
+          image: ubuntu:24.04
+          securityContext:
+            privileged: true
+          command:
+            - /bin/bash
+            - -c
+            - |
+              set -euxo pipefail
+
+              apt-get update
+              apt-get install -y pciutils
+
+              echo "Disabling ACS on PLX PEX8749 PCI bridges..."
+
+              for dev in $(lspci -Dnnd 10b5:8749 | awk '{print $1}'); do
+                echo "=== PLX PEX8749 bridge $dev ==="
+
+                #echo "Current ACS control:"
+                #lspci -vvv -s "$dev" | grep -iE 'Access Control|ACSCap|ACSCtl' -A3
+
+                echo "Disabling ACS control bits..."
+                setpci -s "$dev" f2a.w=0000
+
+
+                #echo "Modified ACS control:"
+                #lspci -vvv -s "$dev" | grep -iE 'Access Control|ACSCap|ACSCtl' -A3
+              done
+
+              echo "PLX PEX8749 ACS tuning complete."
+              sleep infinity

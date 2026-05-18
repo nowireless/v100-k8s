@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: cuda-test
+spec:
+  containers:
+  - name: cuda-test
+    # image: nvcr.io/nvidia/nvhpc:26.3-devel-cuda_multi-ubuntu24.04
+    image: registry.local/scratch/cuda-samples:latest
+    command:
+      - "sleep"
+      - "604800"
+    resources:
+      requests:
+        nvidia.com/gpu: 2
+      limits:
+        nvidia.com/gpu: 2
+---
+# git clone https://github.com/NVIDIA/cuda-samples.git
+# cd cuda-samples
+# git checkout v12.9
+# 
+# for f in $(find . -name  CMakeLists.txt); do echo $f; sed -i 's/set(CMAKE_CUDA_ARCHITECTURES.*/set\(CMAKE_CUDA_ARCHITECTURES 61 70\)/' $f  ; done
+#
+
+# module purge
+# unset CPATH
+# module load nvhpc-hpcx-cuda12/26.3
+
+
+# rm -rv build
+# mkdir build -p 
+# cd build
+# cmake .. \
+#   -DCMAKE_C_COMPILER=/usr/bin/gcc \
+#   -DCMAKE_CXX_COMPILER=/usr/bin/g++ \
+#   -DCMAKE_CUDA_COMPILER="/opt/nvidia/hpc_sdk/Linux_x86_64/26.3/cuda/12.9/bin/nvcc" \
+#   -DCMAKE_CUDA_HOST_COMPILER=/usr/bin/g++ \
+#   -DCMAKE_INSTALL_PREFIX=/work/bin \
+#   -DCUDA_SAMPLES_INSTALL_DIR=/work/bin
+
+
+# NCCL
+# make CUDA_HOME=/opt/nvidia/hpc_sdk/Linux_x86_64/2026
+# /cuda/12.9/ NCCL_HOME=/opt/nvidia/hpc_sdk/Linux_x86_64/2026/comm_libs/12.9/nccl/ -j 6 
