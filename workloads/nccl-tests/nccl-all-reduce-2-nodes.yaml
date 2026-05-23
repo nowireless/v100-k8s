@@ -1,0 +1,136 @@
+# Based on https://raw.githubusercontent.com/coreweave/nccl-tests/refs/heads/master/mpi-operator/nccl-test-distributed-a100-64-mpijob.yaml
+apiVersion: kubeflow.org/v2beta1
+kind: MPIJob
+metadata:
+  name: nccl-all-reduce-2-nodes
+spec:
+  # I have 2 V100s per node
+  slotsPerWorker: 2
+  runPolicy:
+    cleanPodPolicy: Running
+  mpiReplicaSpecs:
+    Launcher:
+      replicas: 1
+      template:
+        spec:
+          containers:
+            - image: registry5000.local/scratch/nccl-tests:v2.18.3-hn01
+              imagePullPolicy: Always
+              name: nccl
+              env:
+                - name: OMPI_ALLOW_RUN_AS_ROOT
+                  value: "1"
+                - name: OMPI_ALLOW_RUN_AS_ROOT_CONFIRM
+                  value: "1"
+                - name: NVIDIA_GDRCOPY
+                  value: "enabled"
+              # Uncomment to be able to exec in to launcher pod for interactive testing
+              # command: ['sleep', '86400']
+              command: ["/bin/bash", "-c"]
+              args:
+              - |
+                  # -x NCCL_DEBUG=INFO \
+                  # -x NCCL_NET_GDR_LEVEL=0 \
+
+                  # TODO check what happens with this on and off
+                  # -x NCCL_CROSS_NIC=1
+
+                  # -x UCX_NET_DEVICES=mlx5_2:1,mlx5_3:1 \
+                  # -x UCX_TLS=rc,cuda_copy,cuda_ipc,gdr_copy \
+
+                  set -x;
+                  mpirun \
+                    --map-by ppr:2:node \
+                    --bind-to none \
+                    -x LD_LIBRARY_PATH \
+                    -x NCCL_DEBUG=INFO \
+                    -x NCCL_DEBUG_SUBSYS=INIT,NET \
+                    -x NCCL_SOCKET_IFNAME=eth0 \
+                    -x NCCL_IB_HCA=mlx5_2,mlx5_3 \
+                    -x NCCL_IB_DISABLE=0 \
+                    -x NCCL_NET_PLUGIN=none \
+                    -x NCCL_NET_GDR_LEVEL=PIX \
+                    -x NCCL_DMABUF_ENABLE=0 \
+                    -x NCCL_CROSS_NIC=0 \
+                    /usr/local/bin/all_reduce_perf_mpi -b 8M -e 1G -f 2 -g 1
+                  # mpirun \
+                  #   --verbose \
+                  #   --map-by ppr:2:node \
+                  #   -bind-to none \
+                  #   -x LD_LIBRARY_PATH \
+                  #   -x NCCL_DEBUG=INFO \
+                  #   -x NCCL_DEBUG_SUBSYS=INIT,NET,GRAPH \
+                  #   -x NCCL_SOCKET_IFNAME=eth0 \
+                  #   -x NCCL_IB_HCA=mlx5_2,mlx5_3 \
+                  #   -x NCCL_IB_DISABLE=0 \
+                  #   -x NCCL_NET_PLUGIN=none \
+                  #   -x NCCL_CROSS_NIC=1 \
+                  #   -x NCCL_DMABUF_ENABLE=0 \
+                  #   /usr/local/bin/all_reduce_perf_mpi -b 8M -e 1G -f 2 -g 1
+                  # mpirun \
+                  #   --verbose \
+                  #   -np 2 \
+                  #   -bind-to none \
+                  #   -x LD_LIBRARY_PATH \
+                  #   -x NCCL_DEBUG=INFO \
+                  #   -x NCCL_SOCKET_IFNAME=eth0 \
+                  #   -x NCCL_IB_HCA=mlx5_2,mlx5_3 \
+                  #   -x NCCL_IB_DISABLE=0 \
+                  #   -x NCCL_NET_PLUGIN=none \
+                  #   ulimit -l
+
+              resources:
+                requests:
+                  cpu: 2
+                  memory: 128Mi
+    Worker:
+      replicas: 2
+      template:
+        metadata:
+          labels:
+            # metadata.coreweave.cloud/job: nccl-test
+        spec:
+          containers:
+            - image: registry5000.local/scratch/nccl-tests:v2.18.3-hn01
+              imagePullPolicy: Always
+              name: nccl
+              env:
+              - name: NVIDIA_GDRCOPY
+                value: "enabled"
+              resources:
+                requests:
+                  cpu: 2
+                  memory: 60Gi
+                  nvidia.com/gpu: 2
+                  rdma/rdma_shared_device_a: 1
+                  rdma/rdma_shared_device_b: 1
+                limits:
+                  cpu: 8
+                  memory: 60Gi
+                  nvidia.com/gpu: 2
+                  rdma/rdma_shared_device_a: 1
+                  rdma/rdma_shared_device_b: 1
+              securityContext:
+                capabilities:
+                  add:
+                  - IPC_LOCK
+              volumeMounts:
+                - mountPath: /dev/shm
+                  name: dshm
+          tolerations:
+          - effect: NoSchedule
+            key: nvidia.com/gpu
+            operator: Exists
+          affinity:
+            nodeAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                nodeSelectorTerms:
+                  - matchExpressions:
+                      - key: nvidia.com/gpu.product
+                        operator: In
+                        values:
+                          - Tesla-V100-SXM2-16GB
+          volumes:
+            - name: dshm
+              emptyDir:
+                medium: Memory

@@ -818,6 +818,7 @@ root@quad3:/#
 - Check if right number of nics exist
   - Also IB nics are named a certain way
   - Add a label/condition saying fabric is available. Don't taint as I like to power off switch 
+    - Ibstatus reports interface is in Active state (if not then fail fabric-avaialble condition). Lets me still run single node workloads, and ones that require multi-node sit and wait. Also fabric isn't available _right_ away for some reason.
 - Make sure peer mem exists
 - PLX switch downstrema ACS settings
 

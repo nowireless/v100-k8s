@@ -32,27 +32,27 @@ spec:
                   # -x NCCL_DEBUG=INFO \
                   # -x NCCL_NET_GDR_LEVEL=0 \
 
-                  # TODO check what happens with this on and off
-                  # -x NCCL_CROSS_NIC=1
-
                   # -x UCX_NET_DEVICES=mlx5_2:1,mlx5_3:1 \
                   # -x UCX_TLS=rc,cuda_copy,cuda_ipc,gdr_copy \
 
                   set -x;
-                  mpirun \
-                    --map-by ppr:2:node \
-                    --bind-to none \
-                    -x LD_LIBRARY_PATH \
-                    -x NCCL_DEBUG=WARN \
-                    -x NCCL_DEBUG_SUBSYS=INIT,NET \
-                    -x NCCL_SOCKET_IFNAME=eth0 \
-                    -x NCCL_IB_HCA=mlx5_2,mlx5_3 \
-                    -x NCCL_IB_DISABLE=0 \
-                    -x NCCL_NET_PLUGIN=none \
-                    -x NCCL_NET_GDR_LEVEL=PIX \
-                    -x NCCL_DMABUF_ENABLE=0 \
-                    -x NCCL_CROSS_NIC=0 \
-                    /usr/local/bin/all_reduce_perf_mpi -b 8M -e 1G -f 2 -g 1
+                  for cross_nic in 0 1; do
+                    echo "==== NCCL_CROSS_NIC=${cross_nic} ===="
+                    mpirun \
+                      --map-by ppr:2:node \
+                      --bind-to none \
+                      -x LD_LIBRARY_PATH \
+                      -x NCCL_DEBUG=WARN \
+                      -x NCCL_DEBUG_SUBSYS=INIT,NET \
+                      -x NCCL_SOCKET_IFNAME=eth0 \
+                      -x NCCL_IB_HCA=mlx5_2,mlx5_3 \
+                      -x NCCL_IB_DISABLE=0 \
+                      -x NCCL_NET_PLUGIN=none \
+                      -x NCCL_NET_GDR_LEVEL=PIX \
+                      -x NCCL_DMABUF_ENABLE=0 \
+                      -x NCCL_CROSS_NIC=${cross_nic} \
+                      /usr/local/bin/all_reduce_perf_mpi -b 8M -e 1G -f 2 -g 1
+                  done
                   # mpirun \
                   #   --verbose \
                   #   --map-by ppr:2:node \
@@ -84,7 +84,7 @@ spec:
                   cpu: 2
                   memory: 128Mi
     Worker:
-      replicas: 2
+      replicas: 1
       template:
         metadata:
           labels:
