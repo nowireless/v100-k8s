@@ -1,0 +1,6 @@
+resources:
+  - ./cluster.yaml
+  - ./vmagent-config.yaml
+  - ./vmscrape-example.yaml
+
+namespace: observability-system

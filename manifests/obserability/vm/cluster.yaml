@@ -1,0 +1,30 @@
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMCluster
+metadata:
+  # define the name of the VM cluster
+  name: vmcluster-hpc
+spec:
+  # define retention period (i.e., 12 months)
+  retentionPeriod: "12"
+  # define the number of pods for each of the services in the VM cluster
+  vmstorage:
+    replicaCount: 1
+    storageDataPath: "/vm-data"
+    storage:
+      volumeClaimTemplate:
+        spec:
+          storageClassName: node-local
+          resources:
+            requests:
+              storage: 100Gi
+  vmselect:
+    replicaCount: 1
+    storage:
+      volumeClaimTemplate:
+        spec:
+          storageClassName: node-local
+          resources:
+            requests:
+              storage: 2Gi
+  vminsert:
+    replicaCount: 1

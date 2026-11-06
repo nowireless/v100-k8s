@@ -1,0 +1,13 @@
+apiVersion: helm.cattle.io/v1
+kind: HelmChart
+metadata:
+  name: victoria-metrics-operator
+  namespace: kube-system
+spec:
+  repo: https://victoriametrics.github.io/helm-charts/
+  chart: victoria-metrics-operator
+  version: v0.63.1
+  targetNamespace: observability-system
+  createNamespace: false
+  # valuesContent: |-
+  

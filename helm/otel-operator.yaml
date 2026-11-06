@@ -1,0 +1,20 @@
+apiVersion: helm.cattle.io/v1
+kind: HelmChart
+metadata:
+  name: opentelemetry-operator
+  namespace: kube-system
+spec:
+  repo: https://open-telemetry.github.io/opentelemetry-helm-charts
+  chart: opentelemetry-operator
+  version: v0.113.1
+  targetNamespace: observability-system
+  createNamespace: false
+  valuesContent: |-
+    manager:
+      collectorImage:
+        repository: otel/opentelemetry-collector-k8s
+    admissionWebhooks:
+      certManager:
+        enabled: false
+      autoGenerateCert:
+        enabled: true

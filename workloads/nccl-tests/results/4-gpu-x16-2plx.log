@@ -1,0 +1,1071 @@
+-- Waiting for worker pods... --
+Attempt 0 ...
+Attempt 1 ...
+Attempt 2 ...
+Attempt 3 ...
+Attempt 4 ...
+Attempt 5 ...
+Attempt 6 ...
+Attempt 7 ...
+Attempt 8 ...
+Attempt 9 ...
+Attempt 10 ...
+Attempt 11 ...
+Attempt 12 ...
+Attempt 13 ...
+Attempt 14 ...
+Attempt 15 ...
+Attempt 16 ...
+Attempt 17 ...
+Attempt 18 ...
++ echo '-- Topology --'
++ mpirun --map-by ppr:1:node nvidia-smi topo -m
+-- Topology --
+Warning: Permanently added '[nccl-all-reduce-1-node-4gpu-worker-0.nccl-all-reduce-1-node-4gpu.default.svc]:2222' (ED25519) to the list of known hosts.
+	[4mGPU0	GPU1	GPU2	GPU3	CPU Affinity	NUMA Affinity	GPU NUMA ID[0m
+GPU0	 X 	PIX	NV6	PHB	0-7	0		N/A
+GPU1	PIX	 X 	PHB	NV6	0-7	0		N/A
+GPU2	NV6	PHB	 X 	PIX	0-7	0		N/A
+GPU3	PHB	NV6	PIX	 X 	0-7	0		N/A
+
+Legend:
+
+  X    = Self
+  SYS  = Connection traversing PCIe as well as the SMP interconnect between NUMA nodes (e.g., QPI/UPI)
+  NODE = Connection traversing PCIe as well as the interconnect between PCIe Host Bridges within a NUMA node
+  PHB  = Connection traversing PCIe as well as a PCIe Host Bridge (typically the CPU)
+  PXB  = Connection traversing multiple PCIe bridges (without traversing the PCIe Host Bridge)
+  PIX  = Connection traversing at most a single PCIe bridge
+  NV#  = Connection traversing a bonded set of # NVLinks
+-- All 4 GPUs --
++ echo '-- All 4 GPUs --'
++ mpirun --map-by ppr:4:node --bind-to none -x LD_LIBRARY_PATH -x NCCL_DEBUG=INFO -x NCCL_DEBUG_SUBSYS=INIT,NET -x NCCL_SOCKET_IFNAME=eth0 -x NCCL_IB_DISABLE=1 -x NCCL_NET_PLUGIN=none -x NCCL_NET_GDR_LEVEL=PIX -x NCCL_DMABUF_ENABLE=0 /usr/local/bin/all_reduce_perf_mpi -b 8M -e 1G -f 2 -g 1
+Warning: Permanently added '[nccl-all-reduce-1-node-4gpu-worker-0.nccl-all-reduce-1-node-4gpu.default.svc]:2222' (ED25519) to the list of known hosts.
+[LOG_CAT_ML] You must specify a valid HCA device by setting:
+-x HCOLL_MAIN_IB=<dev_name:port> or -x UCX_NET_DEVICES=<dev_name:port>.
+If no device was specified for HCOLL (or the calling library), automatic device detection will be run.
+In case of unfounded HCA device please contact your system administrator.
+[LOG_CAT_ML] You must specify a valid HCA device by setting:
+-x HCOLL_MAIN_IB=<dev_name:port> or -x UCX_NET_DEVICES=<dev_name:port>.
+If no device was specified for HCOLL (or the calling library), automatic device detection will be run.
+In case of unfounded HCA device please contact your system administrator.
+[nccl-all-reduce-1-node-4gpu-worker-0:00121] Error: ../../../../../ompi/mca/coll/hcoll/coll_hcoll_module.c:310 - mca_coll_hcoll_comm_query() Hcol library init failed
+[LOG_CAT_ML] You must specify a valid HCA device by setting:
+-x HCOLL_MAIN_IB=<dev_name:port> or -x UCX_NET_DEVICES=<dev_name:port>.
+If no device was specified for HCOLL (or the calling library), automatic device detection will be run.
+In case of unfounded HCA device please contact your system administrator.
+[LOG_CAT_ML] You must specify a valid HCA device by setting:
+-x HCOLL_MAIN_IB=<dev_name:port> or -x UCX_NET_DEVICES=<dev_name:port>.
+If no device was specified for HCOLL (or the calling library), automatic device detection will be run.
+In case of unfounded HCA device please contact your system administrator.
+[nccl-all-reduce-1-node-4gpu-worker-0:00118] Error: ../../../../../ompi/mca/coll/hcoll/coll_hcoll_module.c:310 - mca_coll_hcoll_comm_query() Hcol library init failed
+[nccl-all-reduce-1-node-4gpu-worker-0:00119] Error: ../../../../../ompi/mca/coll/hcoll/coll_hcoll_module.c:310 - mca_coll_hcoll_comm_query() Hcol library init failed
+[nccl-all-reduce-1-node-4gpu-worker-0:00120] Error: ../../../../../ompi/mca/coll/hcoll/coll_hcoll_module.c:310 - mca_coll_hcoll_comm_query() Hcol library init failed
+# nccl-tests version 2.18.3 nccl-headers=22903 nccl-library=22903
+# Collective test starting: all_reduce_perf_mpi
+# nThread 1 nGpus 1 minBytes 8388608 maxBytes 1073741824 step: 2(factor) warmup iters: 1 iters: 20 agg iters: 1 validation: 1 graph: 0 unalign: 0
+#
+# Using devices
+#  Rank  0 Group  0 Pid    118 on nccl-all-reduce-1-node-4gpu-worker-0 device  0 [0000:03:00] Tesla V100-SXM2-16GB
+#  Rank  1 Group  0 Pid    119 on nccl-all-reduce-1-node-4gpu-worker-0 device  1 [0000:04:00] Tesla V100-SXM2-16GB
+#  Rank  2 Group  0 Pid    120 on nccl-all-reduce-1-node-4gpu-worker-0 device  2 [0000:07:00] Tesla V100-SXM2-16GB
+#  Rank  3 Group  0 Pid    121 on nccl-all-reduce-1-node-4gpu-worker-0 device  3 [0000:08:00] Tesla V100-SXM2-16GB
+nccl-all-reduce-1-node-4gpu-worker-0:118:118 [0] NCCL INFO ENV/Plugin: Could not find: libnccl-env.so
+nccl-all-reduce-1-node-4gpu-worker-0:118:118 [0] NCCL INFO NCCL_SOCKET_IFNAME set to eth0
+nccl-all-reduce-1-node-4gpu-worker-0:118:118 [0] NCCL INFO cudaDriverVersion 13000
+nccl-all-reduce-1-node-4gpu-worker-0:118:118 [0] NCCL INFO NCCL version 2.29.3+cuda12.9
+nccl-all-reduce-1-node-4gpu-worker-0:118:118 [0] NCCL INFO NCCL git version stable dcf2a2fbe
+nccl-all-reduce-1-node-4gpu-worker-0:119:119 [1] NCCL INFO ENV/Plugin: Could not find: libnccl-env.so
+nccl-all-reduce-1-node-4gpu-worker-0:119:119 [1] NCCL INFO cudaDriverVersion 13000
+nccl-all-reduce-1-node-4gpu-worker-0:121:121 [3] NCCL INFO ENV/Plugin: Could not find: libnccl-env.so
+nccl-all-reduce-1-node-4gpu-worker-0:121:121 [3] NCCL INFO cudaDriverVersion 13000
+nccl-all-reduce-1-node-4gpu-worker-0:120:120 [2] NCCL INFO ENV/Plugin: Could not find: libnccl-env.so
+nccl-all-reduce-1-node-4gpu-worker-0:120:120 [2] NCCL INFO cudaDriverVersion 13000
+nccl-all-reduce-1-node-4gpu-worker-0:119:119 [1] NCCL INFO NCCL_SOCKET_IFNAME set to eth0
+nccl-all-reduce-1-node-4gpu-worker-0:121:121 [3] NCCL INFO NCCL_SOCKET_IFNAME set to eth0
+nccl-all-reduce-1-node-4gpu-worker-0:119:119 [1] NCCL INFO NCCL version 2.29.3+cuda12.9
+nccl-all-reduce-1-node-4gpu-worker-0:119:119 [1] NCCL INFO NCCL git version stable dcf2a2fbe
+nccl-all-reduce-1-node-4gpu-worker-0:120:120 [2] NCCL INFO NCCL_SOCKET_IFNAME set to eth0
+nccl-all-reduce-1-node-4gpu-worker-0:121:121 [3] NCCL INFO NCCL version 2.29.3+cuda12.9
+nccl-all-reduce-1-node-4gpu-worker-0:121:121 [3] NCCL INFO NCCL git version stable dcf2a2fbe
+nccl-all-reduce-1-node-4gpu-worker-0:120:120 [2] NCCL INFO NCCL version 2.29.3+cuda12.9
+nccl-all-reduce-1-node-4gpu-worker-0:120:120 [2] NCCL INFO NCCL git version stable dcf2a2fbe
+nccl-all-reduce-1-node-4gpu-worker-0:120:120 [2] NCCL INFO NCCL_NET_PLUGIN set by environment to none
+nccl-all-reduce-1-node-4gpu-worker-0:119:119 [1] NCCL INFO NCCL_NET_PLUGIN set by environment to none
+nccl-all-reduce-1-node-4gpu-worker-0:121:121 [3] NCCL INFO NCCL_NET_PLUGIN set by environment to none
+nccl-all-reduce-1-node-4gpu-worker-0:118:118 [0] NCCL INFO NCCL_NET_PLUGIN set by environment to none
+nccl-all-reduce-1-node-4gpu-worker-0:119:119 [1] NCCL INFO transport/net_ib/init.cc:370 -> 3
+nccl-all-reduce-1-node-4gpu-worker-0:119:119 [1] NCCL INFO Failed to initialize NET plugin IB
+nccl-all-reduce-1-node-4gpu-worker-0:120:120 [2] NCCL INFO transport/net_ib/init.cc:370 -> 3
+nccl-all-reduce-1-node-4gpu-worker-0:120:120 [2] NCCL INFO Failed to initialize NET plugin IB
+nccl-all-reduce-1-node-4gpu-worker-0:121:121 [3] NCCL INFO transport/net_ib/init.cc:370 -> 3
+nccl-all-reduce-1-node-4gpu-worker-0:121:121 [3] NCCL INFO Failed to initialize NET plugin IB
+nccl-all-reduce-1-node-4gpu-worker-0:118:118 [0] NCCL INFO transport/net_ib/init.cc:370 -> 3
+nccl-all-reduce-1-node-4gpu-worker-0:118:118 [0] NCCL INFO Failed to initialize NET plugin IB
+nccl-all-reduce-1-node-4gpu-worker-0:120:120 [2] NCCL INFO NET/Socket : Using [0]eth0:10.42.1.240<0>
+nccl-all-reduce-1-node-4gpu-worker-0:120:120 [2] NCCL INFO Initialized NET plugin Socket
+nccl-all-reduce-1-node-4gpu-worker-0:121:121 [3] NCCL INFO NET/Socket : Using [0]eth0:10.42.1.240<0>
+nccl-all-reduce-1-node-4gpu-worker-0:121:121 [3] NCCL INFO Initialized NET plugin Socket
+nccl-all-reduce-1-node-4gpu-worker-0:118:118 [0] NCCL INFO NET/Socket : Using [0]eth0:10.42.1.240<0>
+nccl-all-reduce-1-node-4gpu-worker-0:118:118 [0] NCCL INFO Initialized NET plugin Socket
+nccl-all-reduce-1-node-4gpu-worker-0:118:118 [0] NCCL INFO Assigned NET plugin Socket to comm
+nccl-all-reduce-1-node-4gpu-worker-0:119:119 [1] NCCL INFO NET/Socket : Using [0]eth0:10.42.1.240<0>
+nccl-all-reduce-1-node-4gpu-worker-0:119:119 [1] NCCL INFO Initialized NET plugin Socket
+nccl-all-reduce-1-node-4gpu-worker-0:119:119 [1] NCCL INFO Assigned NET plugin Socket to comm
+nccl-all-reduce-1-node-4gpu-worker-0:119:119 [1] NCCL INFO Using network Socket
+nccl-all-reduce-1-node-4gpu-worker-0:121:121 [3] NCCL INFO Assigned NET plugin Socket to comm
+nccl-all-reduce-1-node-4gpu-worker-0:121:121 [3] NCCL INFO Using network Socket
+nccl-all-reduce-1-node-4gpu-worker-0:120:120 [2] NCCL INFO Assigned NET plugin Socket to comm
+nccl-all-reduce-1-node-4gpu-worker-0:120:120 [2] NCCL INFO Using network Socket
+nccl-all-reduce-1-node-4gpu-worker-0:118:118 [0] NCCL INFO Using network Socket
+nccl-all-reduce-1-node-4gpu-worker-0:120:120 [2] NCCL INFO [Rank 2] ncclCommInitRankConfig comm 0x41ee6240 rank 2 nranks 4 cudaDev 2 nvmlDev 2 busId 7000 commId 0x696982ba555c868a - Init START
+nccl-all-reduce-1-node-4gpu-worker-0:119:119 [1] NCCL INFO [Rank 1] ncclCommInitRankConfig comm 0xeea6970 rank 1 nranks 4 cudaDev 1 nvmlDev 1 busId 4000 commId 0x696982ba555c868a - Init START
+nccl-all-reduce-1-node-4gpu-worker-0:121:121 [3] NCCL INFO [Rank 3] ncclCommInitRankConfig comm 0x229a4af0 rank 3 nranks 4 cudaDev 3 nvmlDev 3 busId 8000 commId 0x696982ba555c868a - Init START
+nccl-all-reduce-1-node-4gpu-worker-0:118:118 [0] NCCL INFO [Rank 0] ncclCommInitRankConfig comm 0x35171c0 rank 0 nranks 4 cudaDev 0 nvmlDev 0 busId 3000 commId 0x696982ba555c868a - Init START
+nccl-all-reduce-1-node-4gpu-worker-0:120:120 [2] NCCL INFO RAS client listening socket at ::1<28028>
+nccl-all-reduce-1-node-4gpu-worker-0:118:118 [0] NCCL INFO RAS client listening socket at ::1<28028>
+nccl-all-reduce-1-node-4gpu-worker-0:119:119 [1] NCCL INFO RAS client listening socket at ::1<28028>
+nccl-all-reduce-1-node-4gpu-worker-0:121:121 [3] NCCL INFO RAS client listening socket at ::1<28028>
+nccl-all-reduce-1-node-4gpu-worker-0:120:120 [2] NCCL INFO NET/Socket : GPU Direct RDMA Disabled for HCA 0 'eth0'
+nccl-all-reduce-1-node-4gpu-worker-0:118:118 [0] NCCL INFO NET/Socket : GPU Direct RDMA Disabled for HCA 0 'eth0'
+nccl-all-reduce-1-node-4gpu-worker-0:119:119 [1] NCCL INFO NET/Socket : GPU Direct RDMA Disabled for HCA 0 'eth0'
+nccl-all-reduce-1-node-4gpu-worker-0:121:121 [3] NCCL INFO NET/Socket : GPU Direct RDMA Disabled for HCA 0 'eth0'
+nccl-all-reduce-1-node-4gpu-worker-0:120:120 [2] NCCL INFO ncclTopoGetCpuAffinity: Affinity for GPU 2 is empty, ignoring. (GPU affinity =  ; CPU affinity = 0-7).
+nccl-all-reduce-1-node-4gpu-worker-0:120:120 [2] NCCL INFO NVLS multicast support is not available on dev 2 (NVLS_NCHANNELS 0)
+nccl-all-reduce-1-node-4gpu-worker-0:118:118 [0] NCCL INFO ncclTopoGetCpuAffinity: Affinity for GPU 0 is empty, ignoring. (GPU affinity =  ; CPU affinity = 0-7).
+nccl-all-reduce-1-node-4gpu-worker-0:118:118 [0] NCCL INFO NVLS multicast support is not available on dev 0 (NVLS_NCHANNELS 0)
+nccl-all-reduce-1-node-4gpu-worker-0:119:119 [1] NCCL INFO ncclTopoGetCpuAffinity: Affinity for GPU 1 is empty, ignoring. (GPU affinity =  ; CPU affinity = 0-7).
+nccl-all-reduce-1-node-4gpu-worker-0:119:119 [1] NCCL INFO NVLS multicast support is not available on dev 1 (NVLS_NCHANNELS 0)
+nccl-all-reduce-1-node-4gpu-worker-0:121:121 [3] NCCL INFO ncclTopoGetCpuAffinity: Affinity for GPU 3 is empty, ignoring. (GPU affinity =  ; CPU affinity = 0-7).
+nccl-all-reduce-1-node-4gpu-worker-0:121:121 [3] NCCL INFO NVLS multicast support is not available on dev 3 (NVLS_NCHANNELS 0)
+nccl-all-reduce-1-node-4gpu-worker-0:120:120 [2] NCCL INFO comm 0x41ee6240 rank 2 nRanks 4 nNodes 1 localRanks 4 localRank 2 MNNVL 0
+nccl-all-reduce-1-node-4gpu-worker-0:120:120 [2] NCCL INFO Trees [0] 3/-1/-1->2->0 [1] -1/-1/-1->2->3 [2] 3/-1/-1->2->0 [3] -1/-1/-1->2->3
+nccl-all-reduce-1-node-4gpu-worker-0:120:120 [2] NCCL INFO P2P Chunksize set to 131072
+nccl-all-reduce-1-node-4gpu-worker-0:119:119 [1] NCCL INFO comm 0xeea6970 rank 1 nRanks 4 nNodes 1 localRanks 4 localRank 1 MNNVL 0
+nccl-all-reduce-1-node-4gpu-worker-0:119:119 [1] NCCL INFO Trees [0] -1/-1/-1->1->3 [1] 3/-1/-1->1->0 [2] -1/-1/-1->1->3 [3] 3/-1/-1->1->0
+nccl-all-reduce-1-node-4gpu-worker-0:119:119 [1] NCCL INFO P2P Chunksize set to 131072
+nccl-all-reduce-1-node-4gpu-worker-0:118:118 [0] NCCL INFO comm 0x35171c0 rank 0 nRanks 4 nNodes 1 localRanks 4 localRank 0 MNNVL 0
+nccl-all-reduce-1-node-4gpu-worker-0:118:118 [0] NCCL INFO Channel 00/04 : 0 2 3 1
+nccl-all-reduce-1-node-4gpu-worker-0:118:118 [0] NCCL INFO Channel 01/04 : 0 1 3 2
+nccl-all-reduce-1-node-4gpu-worker-0:118:118 [0] NCCL INFO Channel 02/04 : 0 2 3 1
+nccl-all-reduce-1-node-4gpu-worker-0:118:118 [0] NCCL INFO Channel 03/04 : 0 1 3 2
+nccl-all-reduce-1-node-4gpu-worker-0:118:118 [0] NCCL INFO Trees [0] 2/-1/-1->0->-1 [1] 1/-1/-1->0->-1 [2] 2/-1/-1->0->-1 [3] 1/-1/-1->0->-1
+nccl-all-reduce-1-node-4gpu-worker-0:121:121 [3] NCCL INFO comm 0x229a4af0 rank 3 nRanks 4 nNodes 1 localRanks 4 localRank 3 MNNVL 0
+nccl-all-reduce-1-node-4gpu-worker-0:121:121 [3] NCCL INFO Trees [0] 1/-1/-1->3->2 [1] 2/-1/-1->3->1 [2] 1/-1/-1->3->2 [3] 2/-1/-1->3->1
+nccl-all-reduce-1-node-4gpu-worker-0:121:121 [3] NCCL INFO P2P Chunksize set to 131072
+nccl-all-reduce-1-node-4gpu-worker-0:118:118 [0] NCCL INFO P2P Chunksize set to 131072
+nccl-all-reduce-1-node-4gpu-worker-0:120:120 [2] NCCL INFO PROFILER/Plugin: Could not find: libnccl-profiler.so
+nccl-all-reduce-1-node-4gpu-worker-0:120:120 [2] NCCL INFO Check P2P Type isAllDirectP2p 0 directMode 0 isAllCudaP2p 1
+nccl-all-reduce-1-node-4gpu-worker-0:121:121 [3] NCCL INFO PROFILER/Plugin: Could not find: libnccl-profiler.so
+nccl-all-reduce-1-node-4gpu-worker-0:121:121 [3] NCCL INFO Check P2P Type isAllDirectP2p 0 directMode 0 isAllCudaP2p 1
+nccl-all-reduce-1-node-4gpu-worker-0:119:119 [1] NCCL INFO PROFILER/Plugin: Could not find: libnccl-profiler.so
+nccl-all-reduce-1-node-4gpu-worker-0:119:119 [1] NCCL INFO Check P2P Type isAllDirectP2p 0 directMode 0 isAllCudaP2p 1
+nccl-all-reduce-1-node-4gpu-worker-0:118:118 [0] NCCL INFO PROFILER/Plugin: Could not find: libnccl-profiler.so
+nccl-all-reduce-1-node-4gpu-worker-0:118:118 [0] NCCL INFO Check P2P Type isAllDirectP2p 0 directMode 0 isAllCudaP2p 1
+nccl-all-reduce-1-node-4gpu-worker-0:120:151 [0] NCCL INFO [Proxy Service] Device 2 CPU core 5
+nccl-all-reduce-1-node-4gpu-worker-0:119:152 [0] NCCL INFO [Proxy Service] Device 1 CPU core 1
+nccl-all-reduce-1-node-4gpu-worker-0:120:155 [0] NCCL INFO [Proxy Service UDS] Device 2 CPU core 2
+nccl-all-reduce-1-node-4gpu-worker-0:118:154 [0] NCCL INFO [Proxy Service] Device 0 CPU core 2
+nccl-all-reduce-1-node-4gpu-worker-0:121:153 [0] NCCL INFO [Proxy Service] Device 3 CPU core 1
+nccl-all-reduce-1-node-4gpu-worker-0:119:157 [0] NCCL INFO [Proxy Service UDS] Device 1 CPU core 3
+nccl-all-reduce-1-node-4gpu-worker-0:121:156 [0] NCCL INFO [Proxy Service UDS] Device 3 CPU core 7
+nccl-all-reduce-1-node-4gpu-worker-0:118:158 [0] NCCL INFO [Proxy Service UDS] Device 0 CPU core 0
+nccl-all-reduce-1-node-4gpu-worker-0:119:119 [1] NCCL INFO TUNER/Plugin: Could not find: libnccl-tuner.so
+nccl-all-reduce-1-node-4gpu-worker-0:119:119 [1] NCCL INFO threadThresholds 8/8/64 | 32/8/64 | 512 | 512
+nccl-all-reduce-1-node-4gpu-worker-0:119:119 [1] NCCL INFO 4 coll channels, 4 collnet channels, 0 nvls channels, 4 p2p channels, 2 p2p channels per peer
+nccl-all-reduce-1-node-4gpu-worker-0:120:120 [2] NCCL INFO TUNER/Plugin: Could not find: libnccl-tuner.so
+nccl-all-reduce-1-node-4gpu-worker-0:120:120 [2] NCCL INFO threadThresholds 8/8/64 | 32/8/64 | 512 | 512
+nccl-all-reduce-1-node-4gpu-worker-0:120:120 [2] NCCL INFO 4 coll channels, 4 collnet channels, 0 nvls channels, 4 p2p channels, 2 p2p channels per peer
+nccl-all-reduce-1-node-4gpu-worker-0:121:121 [3] NCCL INFO TUNER/Plugin: Could not find: libnccl-tuner.so
+nccl-all-reduce-1-node-4gpu-worker-0:121:121 [3] NCCL INFO threadThresholds 8/8/64 | 32/8/64 | 512 | 512
+nccl-all-reduce-1-node-4gpu-worker-0:121:121 [3] NCCL INFO 4 coll channels, 4 collnet channels, 0 nvls channels, 4 p2p channels, 2 p2p channels per peer
+nccl-all-reduce-1-node-4gpu-worker-0:118:118 [0] NCCL INFO TUNER/Plugin: Could not find: libnccl-tuner.so
+nccl-all-reduce-1-node-4gpu-worker-0:118:118 [0] NCCL INFO threadThresholds 8/8/64 | 32/8/64 | 512 | 512
+nccl-all-reduce-1-node-4gpu-worker-0:118:118 [0] NCCL INFO 4 coll channels, 4 collnet channels, 0 nvls channels, 4 p2p channels, 2 p2p channels per peer
+nccl-all-reduce-1-node-4gpu-worker-0:118:118 [0] NCCL INFO CC Off, workFifoBytes 1048576
+nccl-all-reduce-1-node-4gpu-worker-0:121:121 [3] NCCL INFO ncclCommInitRankConfig comm 0x229a4af0 rank 3 nranks 4 cudaDev 3 nvmlDev 3 busId 8000 commId 0x696982ba555c868a - Init COMPLETE
+nccl-all-reduce-1-node-4gpu-worker-0:121:121 [3] NCCL INFO Init timings - ncclCommInitRankConfig: rank 3 nranks 4 total 0.20 (kernels 0.15, alloc 0.03, bootstrap 0.00, allgathers 0.00, topo 0.01, graphs 0.01, connections 0.01, rest 0.00)
+nccl-all-reduce-1-node-4gpu-worker-0:119:119 [1] NCCL INFO ncclCommInitRankConfig comm 0xeea6970 rank 1 nranks 4 cudaDev 1 nvmlDev 1 busId 4000 commId 0x696982ba555c868a - Init COMPLETE
+nccl-all-reduce-1-node-4gpu-worker-0:119:119 [1] NCCL INFO Init timings - ncclCommInitRankConfig: rank 1 nranks 4 total 0.20 (kernels 0.15, alloc 0.03, bootstrap 0.00, allgathers 0.00, topo 0.01, graphs 0.00, connections 0.01, rest 0.00)
+nccl-all-reduce-1-node-4gpu-worker-0:120:120 [2] NCCL INFO ncclCommInitRankConfig comm 0x41ee6240 rank 2 nranks 4 cudaDev 2 nvmlDev 2 busId 7000 commId 0x696982ba555c868a - Init COMPLETE
+nccl-all-reduce-1-node-4gpu-worker-0:120:120 [2] NCCL INFO Init timings - ncclCommInitRankConfig: rank 2 nranks 4 total 0.20 (kernels 0.15, alloc 0.03, bootstrap 0.00, allgathers 0.01, topo 0.01, graphs 0.00, connections 0.01, rest 0.00)
+nccl-all-reduce-1-node-4gpu-worker-0:118:118 [0] NCCL INFO ncclCommInitRankConfig comm 0x35171c0 rank 0 nranks 4 cudaDev 0 nvmlDev 0 busId 3000 commId 0x696982ba555c868a - Init COMPLETE
+nccl-all-reduce-1-node-4gpu-worker-0:118:118 [0] NCCL INFO Init timings - ncclCommInitRankConfig: rank 0 nranks 4 total 0.20 (kernels 0.15, alloc 0.03, bootstrap 0.00, allgathers 0.00, topo 0.01, graphs 0.00, connections 0.01, rest 0.00)
+#
+#                                                              out-of-place                       in-place          
+#       size         count      type   redop    root     time   algbw   busbw  #wrong     time   algbw   busbw  #wrong 
+#        (B)    (elements)                               (us)  (GB/s)  (GB/s)             (us)  (GB/s)  (GB/s)         
+nccl-all-reduce-1-node-4gpu-worker-0:118:118 [0] NCCL INFO Symmetric VA size=16GB
+nccl-all-reduce-1-node-4gpu-worker-0:119:119 [1] NCCL INFO Symmetric VA size=16GB
+nccl-all-reduce-1-node-4gpu-worker-0:120:120 [2] NCCL INFO Symmetric VA size=16GB
+nccl-all-reduce-1-node-4gpu-worker-0:121:121 [3] NCCL INFO Symmetric VA size=16GB
+nccl-all-reduce-1-node-4gpu-worker-0:118:118 [0] NCCL INFO Channel 01/0 : 0[0] -> 1[1] via P2P/CUMEM
+nccl-all-reduce-1-node-4gpu-worker-0:120:120 [2] NCCL INFO Channel 00/0 : 2[2] -> 3[3] via P2P/CUMEM
+nccl-all-reduce-1-node-4gpu-worker-0:118:154 [0] NCCL INFO New proxy send connection 0 from local rank 0, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:118:118 [0] NCCL INFO Connected to proxy localRank 0 -> connection 0x78e19c000d20
+nccl-all-reduce-1-node-4gpu-worker-0:121:153 [3] NCCL INFO New proxy recv connection 0 from local rank 3, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:121:121 [3] NCCL INFO Connected to proxy localRank 3 -> connection 0x73996c000d20
+nccl-all-reduce-1-node-4gpu-worker-0:119:152 [1] NCCL INFO New proxy recv connection 0 from local rank 1, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:119:119 [1] NCCL INFO Connected to proxy localRank 1 -> connection 0x72d3e4000d20
+nccl-all-reduce-1-node-4gpu-worker-0:118:118 [0] NCCL INFO Channel 03/0 : 0[0] -> 1[1] via P2P/CUMEM
+nccl-all-reduce-1-node-4gpu-worker-0:119:152 [1] NCCL INFO New proxy recv connection 1 from local rank 1, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:118:154 [0] NCCL INFO New proxy send connection 1 from local rank 0, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:118:118 [0] NCCL INFO Connected to proxy localRank 0 -> connection 0x78e19c000d98
+nccl-all-reduce-1-node-4gpu-worker-0:119:119 [1] NCCL INFO Connected to proxy localRank 1 -> connection 0x72d3e4000d98
+nccl-all-reduce-1-node-4gpu-worker-0:118:154 [0] NCCL INFO New proxy recv connection 2 from local rank 0, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:118:118 [0] NCCL INFO Connected to proxy localRank 0 -> connection 0x78e19c000e10
+nccl-all-reduce-1-node-4gpu-worker-0:119:152 [1] NCCL INFO New proxy recv connection 2 from local rank 1, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:119:119 [1] NCCL INFO Connected to proxy localRank 1 -> connection 0x72d3e4000e10
+nccl-all-reduce-1-node-4gpu-worker-0:118:154 [0] NCCL INFO New proxy recv connection 3 from local rank 0, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:118:118 [0] NCCL INFO Connected to proxy localRank 0 -> connection 0x78e19c000e88
+nccl-all-reduce-1-node-4gpu-worker-0:119:152 [1] NCCL INFO New proxy recv connection 3 from local rank 1, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:119:119 [1] NCCL INFO Connected to proxy localRank 1 -> connection 0x72d3e4000e88
+nccl-all-reduce-1-node-4gpu-worker-0:120:151 [2] NCCL INFO New proxy send connection 0 from local rank 2, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:118:118 [0] NCCL INFO Channel 00/0 : 0[0] -> 2[2] via P2P/CUMEM
+nccl-all-reduce-1-node-4gpu-worker-0:120:120 [2] NCCL INFO Connected to proxy localRank 2 -> connection 0x749208000d20
+nccl-all-reduce-1-node-4gpu-worker-0:118:154 [0] NCCL INFO New proxy send connection 4 from local rank 0, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:118:118 [0] NCCL INFO Connected to proxy localRank 0 -> connection 0x78e19c000f00
+nccl-all-reduce-1-node-4gpu-worker-0:119:119 [1] NCCL INFO Channel 01/0 : 1[1] -> 3[3] via P2P/CUMEM
+nccl-all-reduce-1-node-4gpu-worker-0:119:152 [1] NCCL INFO New proxy send connection 4 from local rank 1, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:119:119 [1] NCCL INFO Connected to proxy localRank 1 -> connection 0x72d3e4000f00
+nccl-all-reduce-1-node-4gpu-worker-0:118:118 [0] NCCL INFO Channel 02/0 : 0[0] -> 2[2] via P2P/CUMEM
+nccl-all-reduce-1-node-4gpu-worker-0:118:154 [0] NCCL INFO New proxy send connection 5 from local rank 0, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:120:120 [2] NCCL INFO Channel 02/0 : 2[2] -> 3[3] via P2P/CUMEM
+nccl-all-reduce-1-node-4gpu-worker-0:118:118 [0] NCCL INFO Connected to proxy localRank 0 -> connection 0x78e19c000f78
+nccl-all-reduce-1-node-4gpu-worker-0:120:151 [2] NCCL INFO New proxy send connection 1 from local rank 2, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:120:120 [2] NCCL INFO Connected to proxy localRank 2 -> connection 0x749208000d98
+nccl-all-reduce-1-node-4gpu-worker-0:121:153 [3] NCCL INFO New proxy recv connection 1 from local rank 3, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:121:121 [3] NCCL INFO Connected to proxy localRank 3 -> connection 0x73996c000d98
+nccl-all-reduce-1-node-4gpu-worker-0:120:151 [2] NCCL INFO New proxy recv connection 2 from local rank 2, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:121:153 [3] NCCL INFO New proxy recv connection 2 from local rank 3, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:121:121 [3] NCCL INFO Connected to proxy localRank 3 -> connection 0x73996c000e10
+nccl-all-reduce-1-node-4gpu-worker-0:120:120 [2] NCCL INFO Connected to proxy localRank 2 -> connection 0x749208000e10
+nccl-all-reduce-1-node-4gpu-worker-0:121:153 [3] NCCL INFO New proxy recv connection 3 from local rank 3, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:121:121 [3] NCCL INFO Connected to proxy localRank 3 -> connection 0x73996c000e88
+nccl-all-reduce-1-node-4gpu-worker-0:120:151 [2] NCCL INFO New proxy recv connection 3 from local rank 2, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:120:120 [2] NCCL INFO Connected to proxy localRank 2 -> connection 0x749208000e88
+nccl-all-reduce-1-node-4gpu-worker-0:121:121 [3] NCCL INFO Channel 00/0 : 3[3] -> 1[1] via P2P/CUMEM
+nccl-all-reduce-1-node-4gpu-worker-0:121:153 [3] NCCL INFO New proxy send connection 4 from local rank 3, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:121:121 [3] NCCL INFO Connected to proxy localRank 3 -> connection 0x73996c000f00
+nccl-all-reduce-1-node-4gpu-worker-0:120:120 [2] NCCL INFO Channel 01/0 : 2[2] -> 0[0] via P2P/CUMEM
+nccl-all-reduce-1-node-4gpu-worker-0:120:151 [2] NCCL INFO New proxy send connection 4 from local rank 2, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:120:120 [2] NCCL INFO Connected to proxy localRank 2 -> connection 0x749208000f00
+nccl-all-reduce-1-node-4gpu-worker-0:121:121 [3] NCCL INFO Channel 02/0 : 3[3] -> 1[1] via P2P/CUMEM
+nccl-all-reduce-1-node-4gpu-worker-0:121:153 [3] NCCL INFO New proxy send connection 5 from local rank 3, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:121:121 [3] NCCL INFO Connected to proxy localRank 3 -> connection 0x73996c000f78
+nccl-all-reduce-1-node-4gpu-worker-0:120:120 [2] NCCL INFO Channel 03/0 : 2[2] -> 0[0] via P2P/CUMEM
+nccl-all-reduce-1-node-4gpu-worker-0:120:151 [2] NCCL INFO New proxy send connection 5 from local rank 2, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:120:120 [2] NCCL INFO Connected to proxy localRank 2 -> connection 0x749208000f78
+nccl-all-reduce-1-node-4gpu-worker-0:120:151 [2] NCCL INFO New proxy recv connection 6 from local rank 2, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:120:120 [2] NCCL INFO Connected to proxy localRank 2 -> connection 0x749208000ff0
+nccl-all-reduce-1-node-4gpu-worker-0:118:154 [0] NCCL INFO New proxy recv connection 6 from local rank 0, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:118:118 [0] NCCL INFO Connected to proxy localRank 0 -> connection 0x78e19c000ff0
+nccl-all-reduce-1-node-4gpu-worker-0:119:119 [1] NCCL INFO Channel 03/0 : 1[1] -> 3[3] via P2P/CUMEM
+nccl-all-reduce-1-node-4gpu-worker-0:119:152 [1] NCCL INFO New proxy send connection 5 from local rank 1, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:119:119 [1] NCCL INFO Connected to proxy localRank 1 -> connection 0x72d3e4000f78
+nccl-all-reduce-1-node-4gpu-worker-0:118:154 [0] NCCL INFO New proxy recv connection 7 from local rank 0, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:118:118 [0] NCCL INFO Connected to proxy localRank 0 -> connection 0x78e19c001068
+nccl-all-reduce-1-node-4gpu-worker-0:121:121 [3] NCCL INFO Channel 01/0 : 3[3] -> 2[2] via P2P/CUMEM
+nccl-all-reduce-1-node-4gpu-worker-0:121:153 [3] NCCL INFO New proxy send connection 6 from local rank 3, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:119:119 [1] NCCL INFO Channel 00/0 : 1[1] -> 0[0] via P2P/CUMEM
+nccl-all-reduce-1-node-4gpu-worker-0:121:121 [3] NCCL INFO Connected to proxy localRank 3 -> connection 0x73996c000ff0
+nccl-all-reduce-1-node-4gpu-worker-0:121:121 [3] NCCL INFO Channel 03/0 : 3[3] -> 2[2] via P2P/CUMEM
+nccl-all-reduce-1-node-4gpu-worker-0:121:153 [3] NCCL INFO New proxy send connection 7 from local rank 3, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:121:121 [3] NCCL INFO Connected to proxy localRank 3 -> connection 0x73996c001068
+nccl-all-reduce-1-node-4gpu-worker-0:119:152 [1] NCCL INFO New proxy send connection 6 from local rank 1, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:119:119 [1] NCCL INFO Connected to proxy localRank 1 -> connection 0x72d3e4000ff0
+nccl-all-reduce-1-node-4gpu-worker-0:120:151 [2] NCCL INFO New proxy recv connection 7 from local rank 2, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:120:120 [2] NCCL INFO Connected to proxy localRank 2 -> connection 0x749208001068
+nccl-all-reduce-1-node-4gpu-worker-0:119:119 [1] NCCL INFO Channel 02/0 : 1[1] -> 0[0] via P2P/CUMEM
+nccl-all-reduce-1-node-4gpu-worker-0:119:152 [1] NCCL INFO New proxy send connection 7 from local rank 1, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:119:119 [1] NCCL INFO Connected to proxy localRank 1 -> connection 0x72d3e4001068
+nccl-all-reduce-1-node-4gpu-worker-0:120:151 [2] NCCL INFO New proxy send connection 8 from local rank 3, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:121:121 [3] NCCL INFO Connected to proxy localRank 2 -> connection 0x7492080010e0
+nccl-all-reduce-1-node-4gpu-worker-0:121:153 [3] NCCL INFO New proxy send connection 8 from local rank 2, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:120:120 [2] NCCL INFO Connected to proxy localRank 3 -> connection 0x73996c0010e0
+nccl-all-reduce-1-node-4gpu-worker-0:118:154 [0] NCCL INFO New proxy send connection 8 from local rank 1, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:119:119 [1] NCCL INFO Connected to proxy localRank 0 -> connection 0x78e19c0010e0
+nccl-all-reduce-1-node-4gpu-worker-0:119:152 [1] NCCL INFO New proxy send connection 8 from local rank 0, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:118:118 [0] NCCL INFO Connected to proxy localRank 1 -> connection 0x72d3e40010e0
+nccl-all-reduce-1-node-4gpu-worker-0:119:152 [1] NCCL INFO New proxy send connection 9 from local rank 3, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:121:121 [3] NCCL INFO Connected to proxy localRank 1 -> connection 0x72d3e4001158
+nccl-all-reduce-1-node-4gpu-worker-0:118:154 [0] NCCL INFO New proxy send connection 9 from local rank 2, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:120:120 [2] NCCL INFO Connected to proxy localRank 0 -> connection 0x78e19c001158
+nccl-all-reduce-1-node-4gpu-worker-0:121:153 [3] NCCL INFO New proxy send connection 9 from local rank 1, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:119:119 [1] NCCL INFO Connected to proxy localRank 3 -> connection 0x73996c001158
+nccl-all-reduce-1-node-4gpu-worker-0:120:151 [2] NCCL INFO New proxy send connection 9 from local rank 0, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:118:118 [0] NCCL INFO Connected to proxy localRank 2 -> connection 0x749208001158
+nccl-all-reduce-1-node-4gpu-worker-0:119:119 [1] NCCL INFO Connected all rings, use ring PXN 0 GDR 1
+nccl-all-reduce-1-node-4gpu-worker-0:118:118 [0] NCCL INFO Connected all rings, use ring PXN 0 GDR 1
+nccl-all-reduce-1-node-4gpu-worker-0:121:121 [3] NCCL INFO Connected all rings, use ring PXN 0 GDR 1
+nccl-all-reduce-1-node-4gpu-worker-0:120:120 [2] NCCL INFO Connected all rings, use ring PXN 0 GDR 1
+     8388608       2097152     float     sum      -1   586.57   14.30   21.45       0   586.40   14.31   21.46       0
+    16777216       4194304     float     sum      -1  1152.86   14.55   21.83       0  1151.14   14.57   21.86       0
+    33554432       8388608     float     sum      -1  2302.36   14.57   21.86       0  2301.04   14.58   21.87       0
+    67108864      16777216     float     sum      -1  4568.35   14.69   22.03       0  4565.19   14.70   22.05       0
+   134217728      33554432     float     sum      -1  9110.31   14.73   22.10       0  9110.62   14.73   22.10       0
+   268435456      67108864     float     sum      -1  18199.1   14.75   22.12       0  18172.3   14.77   22.16       0
+   536870912     134217728     float     sum      -1  36367.7   14.76   22.14       0  36406.4   14.75   22.12       0
+  1073741824     268435456     float     sum      -1  72425.0   14.83   22.24       0  72359.0   14.84   22.26       0
+nccl-all-reduce-1-node-4gpu-worker-0:121:121 [3] NCCL INFO comm 0x229a4af0 rank 3 nranks 4 cudaDev 3 busId 8000 - Destroy COMPLETE
+nccl-all-reduce-1-node-4gpu-worker-0:118:118 [0] NCCL INFO comm 0x35171c0 rank 0 nranks 4 cudaDev 0 busId 3000 - Destroy COMPLETE
+nccl-all-reduce-1-node-4gpu-worker-0:120:120 [2] NCCL INFO comm 0x41ee6240 rank 2 nranks 4 cudaDev 2 busId 7000 - Destroy COMPLETE
+nccl-all-reduce-1-node-4gpu-worker-0:119:119 [1] NCCL INFO comm 0xeea6970 rank 1 nranks 4 cudaDev 1 busId 4000 - Destroy COMPLETE
+# Out of bounds values : 0 OK
+# Avg bus bandwidth    : 21.9787 
+#
+# Collective test concluded: all_reduce_perf_mpi
+#
+
+nccl-all-reduce-1-node-4gpu-worker-0:119:119 [1] NCCL INFO ENV/Plugin: Closing env plugin ncclEnvDefault
+nccl-all-reduce-1-node-4gpu-worker-0:118:118 [0] NCCL INFO ENV/Plugin: Closing env plugin ncclEnvDefault
+nccl-all-reduce-1-node-4gpu-worker-0:121:121 [3] NCCL INFO ENV/Plugin: Closing env plugin ncclEnvDefault
+nccl-all-reduce-1-node-4gpu-worker-0:120:120 [2] NCCL INFO ENV/Plugin: Closing env plugin ncclEnvDefault
++ echo '-- GPU 0 & 1 --'
+-- GPU 0 & 1 --
++ mpirun --map-by ppr:2:node --bind-to none -x LD_LIBRARY_PATH -x NCCL_DEBUG=INFO -x NCCL_DEBUG_SUBSYS=INIT,NET -x NCCL_SOCKET_IFNAME=eth0 -x NCCL_IB_DISABLE=1 -x NCCL_NET_PLUGIN=none -x NCCL_NET_GDR_LEVEL=PIX -x NCCL_DMABUF_ENABLE=0 -x CUDA_VISIBLE_DEVICES=0,1 /usr/local/bin/all_reduce_perf_mpi -b 8M -e 1G -f 2 -g 1
+Warning: Permanently added '[nccl-all-reduce-1-node-4gpu-worker-0.nccl-all-reduce-1-node-4gpu.default.svc]:2222' (ED25519) to the list of known hosts.
+[LOG_CAT_ML] You must specify a valid HCA device by setting:
+-x HCOLL_MAIN_IB=<dev_name:port> or -x UCX_NET_DEVICES=<dev_name:port>.
+If no device was specified for HCOLL (or the calling library), automatic device detection will be run.
+In case of unfounded HCA device please contact your system administrator.
+[LOG_CAT_ML] You must specify a valid HCA device by setting:
+-x HCOLL_MAIN_IB=<dev_name:port> or -x UCX_NET_DEVICES=<dev_name:port>.
+If no device was specified for HCOLL (or the calling library), automatic device detection will be run.
+In case of unfounded HCA device please contact your system administrator.
+[nccl-all-reduce-1-node-4gpu-worker-0:00182] Error: ../../../../../ompi/mca/coll/hcoll/coll_hcoll_module.c:310 - mca_coll_hcoll_comm_query() Hcol library init failed
+[nccl-all-reduce-1-node-4gpu-worker-0:00181] Error: ../../../../../ompi/mca/coll/hcoll/coll_hcoll_module.c:310 - mca_coll_hcoll_comm_query() Hcol library init failed
+# nccl-tests version 2.18.3 nccl-headers=22903 nccl-library=22903
+# Collective test starting: all_reduce_perf_mpi
+# nThread 1 nGpus 1 minBytes 8388608 maxBytes 1073741824 step: 2(factor) warmup iters: 1 iters: 20 agg iters: 1 validation: 1 graph: 0 unalign: 0
+#
+# Using devices
+#  Rank  0 Group  0 Pid    181 on nccl-all-reduce-1-node-4gpu-worker-0 device  0 [0000:03:00] Tesla V100-SXM2-16GB
+#  Rank  1 Group  0 Pid    182 on nccl-all-reduce-1-node-4gpu-worker-0 device  1 [0000:04:00] Tesla V100-SXM2-16GB
+nccl-all-reduce-1-node-4gpu-worker-0:181:181 [0] NCCL INFO ENV/Plugin: Could not find: libnccl-env.so
+nccl-all-reduce-1-node-4gpu-worker-0:181:181 [0] NCCL INFO NCCL_SOCKET_IFNAME set to eth0
+nccl-all-reduce-1-node-4gpu-worker-0:181:181 [0] NCCL INFO cudaDriverVersion 13000
+nccl-all-reduce-1-node-4gpu-worker-0:181:181 [0] NCCL INFO NCCL version 2.29.3+cuda12.9
+nccl-all-reduce-1-node-4gpu-worker-0:181:181 [0] NCCL INFO NCCL git version stable dcf2a2fbe
+nccl-all-reduce-1-node-4gpu-worker-0:182:182 [1] NCCL INFO ENV/Plugin: Could not find: libnccl-env.so
+nccl-all-reduce-1-node-4gpu-worker-0:182:182 [1] NCCL INFO cudaDriverVersion 13000
+nccl-all-reduce-1-node-4gpu-worker-0:182:182 [1] NCCL INFO NCCL_SOCKET_IFNAME set to eth0
+nccl-all-reduce-1-node-4gpu-worker-0:182:182 [1] NCCL INFO NCCL version 2.29.3+cuda12.9
+nccl-all-reduce-1-node-4gpu-worker-0:182:182 [1] NCCL INFO NCCL git version stable dcf2a2fbe
+nccl-all-reduce-1-node-4gpu-worker-0:181:181 [0] NCCL INFO NCCL_NET_PLUGIN set by environment to none
+nccl-all-reduce-1-node-4gpu-worker-0:181:181 [0] NCCL INFO transport/net_ib/init.cc:370 -> 3
+nccl-all-reduce-1-node-4gpu-worker-0:181:181 [0] NCCL INFO Failed to initialize NET plugin IB
+nccl-all-reduce-1-node-4gpu-worker-0:181:181 [0] NCCL INFO NET/Socket : Using [0]eth0:10.42.1.240<0>
+nccl-all-reduce-1-node-4gpu-worker-0:181:181 [0] NCCL INFO Initialized NET plugin Socket
+nccl-all-reduce-1-node-4gpu-worker-0:181:181 [0] NCCL INFO Assigned NET plugin Socket to comm
+nccl-all-reduce-1-node-4gpu-worker-0:181:181 [0] NCCL INFO Using network Socket
+nccl-all-reduce-1-node-4gpu-worker-0:182:182 [1] NCCL INFO NCCL_NET_PLUGIN set by environment to none
+nccl-all-reduce-1-node-4gpu-worker-0:182:182 [1] NCCL INFO transport/net_ib/init.cc:370 -> 3
+nccl-all-reduce-1-node-4gpu-worker-0:182:182 [1] NCCL INFO Failed to initialize NET plugin IB
+nccl-all-reduce-1-node-4gpu-worker-0:182:182 [1] NCCL INFO NET/Socket : Using [0]eth0:10.42.1.240<0>
+nccl-all-reduce-1-node-4gpu-worker-0:182:182 [1] NCCL INFO Initialized NET plugin Socket
+nccl-all-reduce-1-node-4gpu-worker-0:182:182 [1] NCCL INFO Assigned NET plugin Socket to comm
+nccl-all-reduce-1-node-4gpu-worker-0:182:182 [1] NCCL INFO Using network Socket
+nccl-all-reduce-1-node-4gpu-worker-0:181:181 [0] NCCL INFO [Rank 0] ncclCommInitRankConfig comm 0x3fb50640 rank 0 nranks 2 cudaDev 0 nvmlDev 0 busId 3000 commId 0x93cc88ad7655be96 - Init START
+nccl-all-reduce-1-node-4gpu-worker-0:182:182 [1] NCCL INFO [Rank 1] ncclCommInitRankConfig comm 0x3474d90 rank 1 nranks 2 cudaDev 1 nvmlDev 1 busId 4000 commId 0x93cc88ad7655be96 - Init START
+nccl-all-reduce-1-node-4gpu-worker-0:182:182 [1] NCCL INFO RAS client listening socket at ::1<28028>
+nccl-all-reduce-1-node-4gpu-worker-0:181:181 [0] NCCL INFO RAS client listening socket at ::1<28028>
+nccl-all-reduce-1-node-4gpu-worker-0:181:181 [0] NCCL INFO NET/Socket : GPU Direct RDMA Disabled for HCA 0 'eth0'
+nccl-all-reduce-1-node-4gpu-worker-0:182:182 [1] NCCL INFO NET/Socket : GPU Direct RDMA Disabled for HCA 0 'eth0'
+nccl-all-reduce-1-node-4gpu-worker-0:181:181 [0] NCCL INFO ncclTopoGetCpuAffinity: Affinity for GPU 0 is empty, ignoring. (GPU affinity =  ; CPU affinity = 0-7).
+nccl-all-reduce-1-node-4gpu-worker-0:181:181 [0] NCCL INFO NVLS multicast support is not available on dev 0 (NVLS_NCHANNELS 0)
+nccl-all-reduce-1-node-4gpu-worker-0:182:182 [1] NCCL INFO ncclTopoGetCpuAffinity: Affinity for GPU 1 is empty, ignoring. (GPU affinity =  ; CPU affinity = 0-7).
+nccl-all-reduce-1-node-4gpu-worker-0:182:182 [1] NCCL INFO NVLS multicast support is not available on dev 1 (NVLS_NCHANNELS 0)
+nccl-all-reduce-1-node-4gpu-worker-0:182:182 [1] NCCL INFO comm 0x3474d90 rank 1 nRanks 2 nNodes 1 localRanks 2 localRank 1 MNNVL 0
+nccl-all-reduce-1-node-4gpu-worker-0:182:182 [1] NCCL INFO Trees [0] -1/-1/-1->1->0 [1] -1/-1/-1->1->0
+nccl-all-reduce-1-node-4gpu-worker-0:181:181 [0] NCCL INFO comm 0x3fb50640 rank 0 nRanks 2 nNodes 1 localRanks 2 localRank 0 MNNVL 0
+nccl-all-reduce-1-node-4gpu-worker-0:182:182 [1] NCCL INFO P2P Chunksize set to 131072
+nccl-all-reduce-1-node-4gpu-worker-0:181:181 [0] NCCL INFO Channel 00/02 : 0 1
+nccl-all-reduce-1-node-4gpu-worker-0:181:181 [0] NCCL INFO Channel 01/02 : 0 1
+nccl-all-reduce-1-node-4gpu-worker-0:181:181 [0] NCCL INFO Trees [0] 1/-1/-1->0->-1 [1] 1/-1/-1->0->-1
+nccl-all-reduce-1-node-4gpu-worker-0:181:181 [0] NCCL INFO P2P Chunksize set to 131072
+nccl-all-reduce-1-node-4gpu-worker-0:182:182 [1] NCCL INFO PROFILER/Plugin: Could not find: libnccl-profiler.so
+nccl-all-reduce-1-node-4gpu-worker-0:182:182 [1] NCCL INFO Check P2P Type isAllDirectP2p 1 directMode 0 isAllCudaP2p 1
+nccl-all-reduce-1-node-4gpu-worker-0:181:181 [0] NCCL INFO PROFILER/Plugin: Could not find: libnccl-profiler.so
+nccl-all-reduce-1-node-4gpu-worker-0:181:181 [0] NCCL INFO Check P2P Type isAllDirectP2p 1 directMode 0 isAllCudaP2p 1
+nccl-all-reduce-1-node-4gpu-worker-0:182:198 [0] NCCL INFO [Proxy Service] Device 1 CPU core 6
+nccl-all-reduce-1-node-4gpu-worker-0:181:199 [0] NCCL INFO [Proxy Service] Device 0 CPU core 4
+nccl-all-reduce-1-node-4gpu-worker-0:181:201 [0] NCCL INFO [Proxy Service UDS] Device 0 CPU core 5
+nccl-all-reduce-1-node-4gpu-worker-0:182:200 [0] NCCL INFO [Proxy Service UDS] Device 1 CPU core 3
+nccl-all-reduce-1-node-4gpu-worker-0:182:182 [1] NCCL INFO TUNER/Plugin: Could not find: libnccl-tuner.so
+nccl-all-reduce-1-node-4gpu-worker-0:182:182 [1] NCCL INFO threadThresholds 8/8/64 | 16/8/64 | 512 | 512
+nccl-all-reduce-1-node-4gpu-worker-0:182:182 [1] NCCL INFO 2 coll channels, 2 collnet channels, 0 nvls channels, 2 p2p channels, 2 p2p channels per peer
+nccl-all-reduce-1-node-4gpu-worker-0:181:181 [0] NCCL INFO TUNER/Plugin: Could not find: libnccl-tuner.so
+nccl-all-reduce-1-node-4gpu-worker-0:181:181 [0] NCCL INFO threadThresholds 8/8/64 | 16/8/64 | 512 | 512
+nccl-all-reduce-1-node-4gpu-worker-0:181:181 [0] NCCL INFO 2 coll channels, 2 collnet channels, 0 nvls channels, 2 p2p channels, 2 p2p channels per peer
+nccl-all-reduce-1-node-4gpu-worker-0:181:181 [0] NCCL INFO CC Off, workFifoBytes 1048576
+nccl-all-reduce-1-node-4gpu-worker-0:182:182 [1] NCCL INFO ncclCommInitRankConfig comm 0x3474d90 rank 1 nranks 2 cudaDev 1 nvmlDev 1 busId 4000 commId 0x93cc88ad7655be96 - Init COMPLETE
+nccl-all-reduce-1-node-4gpu-worker-0:182:182 [1] NCCL INFO Init timings - ncclCommInitRankConfig: rank 1 nranks 2 total 0.15 (kernels 0.12, alloc 0.02, bootstrap 0.00, allgathers 0.00, topo 0.00, graphs 0.00, connections 0.00, rest 0.00)
+nccl-all-reduce-1-node-4gpu-worker-0:181:181 [0] NCCL INFO ncclCommInitRankConfig comm 0x3fb50640 rank 0 nranks 2 cudaDev 0 nvmlDev 0 busId 3000 commId 0x93cc88ad7655be96 - Init COMPLETE
+nccl-all-reduce-1-node-4gpu-worker-0:181:181 [0] NCCL INFO Init timings - ncclCommInitRankConfig: rank 0 nranks 2 total 0.15 (kernels 0.12, alloc 0.02, bootstrap 0.00, allgathers 0.00, topo 0.00, graphs 0.00, connections 0.00, rest 0.00)
+#
+#                                                              out-of-place                       in-place          
+#       size         count      type   redop    root     time   algbw   busbw  #wrong     time   algbw   busbw  #wrong 
+#        (B)    (elements)                               (us)  (GB/s)  (GB/s)             (us)  (GB/s)  (GB/s)         
+nccl-all-reduce-1-node-4gpu-worker-0:181:181 [0] NCCL INFO Symmetric VA size=16GB
+nccl-all-reduce-1-node-4gpu-worker-0:182:182 [1] NCCL INFO Symmetric VA size=16GB
+nccl-all-reduce-1-node-4gpu-worker-0:182:198 [1] NCCL INFO New proxy recv connection 0 from local rank 1, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:181:199 [0] NCCL INFO New proxy recv connection 0 from local rank 0, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:181:181 [0] NCCL INFO Connected to proxy localRank 0 -> connection 0x77503c000d20
+nccl-all-reduce-1-node-4gpu-worker-0:182:182 [1] NCCL INFO Connected to proxy localRank 1 -> connection 0x7536e8000d20
+nccl-all-reduce-1-node-4gpu-worker-0:181:199 [0] NCCL INFO New proxy recv connection 1 from local rank 0, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:181:181 [0] NCCL INFO Connected to proxy localRank 0 -> connection 0x77503c000d98
+nccl-all-reduce-1-node-4gpu-worker-0:182:198 [1] NCCL INFO New proxy recv connection 1 from local rank 1, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:182:182 [1] NCCL INFO Connected to proxy localRank 1 -> connection 0x7536e8000d98
+nccl-all-reduce-1-node-4gpu-worker-0:181:181 [0] NCCL INFO Channel 00/0 : 0[0] -> 1[1] via P2P/CUMEM
+nccl-all-reduce-1-node-4gpu-worker-0:181:199 [0] NCCL INFO New proxy send connection 2 from local rank 0, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:181:181 [0] NCCL INFO Connected to proxy localRank 0 -> connection 0x77503c000e10
+nccl-all-reduce-1-node-4gpu-worker-0:182:182 [1] NCCL INFO Channel 00/0 : 1[1] -> 0[0] via P2P/CUMEM
+nccl-all-reduce-1-node-4gpu-worker-0:182:198 [1] NCCL INFO New proxy send connection 2 from local rank 1, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:182:182 [1] NCCL INFO Connected to proxy localRank 1 -> connection 0x7536e8000e10
+nccl-all-reduce-1-node-4gpu-worker-0:181:181 [0] NCCL INFO Channel 01/0 : 0[0] -> 1[1] via P2P/CUMEM
+nccl-all-reduce-1-node-4gpu-worker-0:181:199 [0] NCCL INFO New proxy send connection 3 from local rank 0, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:181:181 [0] NCCL INFO Connected to proxy localRank 0 -> connection 0x77503c000e88
+nccl-all-reduce-1-node-4gpu-worker-0:182:182 [1] NCCL INFO Channel 01/0 : 1[1] -> 0[0] via P2P/CUMEM
+nccl-all-reduce-1-node-4gpu-worker-0:182:198 [1] NCCL INFO New proxy send connection 3 from local rank 1, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:182:182 [1] NCCL INFO Connected to proxy localRank 1 -> connection 0x7536e8000e88
+nccl-all-reduce-1-node-4gpu-worker-0:182:198 [1] NCCL INFO New proxy send connection 4 from local rank 0, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:181:199 [0] NCCL INFO New proxy send connection 4 from local rank 1, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:181:181 [0] NCCL INFO Connected to proxy localRank 1 -> connection 0x7536e8000f00
+nccl-all-reduce-1-node-4gpu-worker-0:182:182 [1] NCCL INFO Connected to proxy localRank 0 -> connection 0x77503c000f00
+nccl-all-reduce-1-node-4gpu-worker-0:181:181 [0] NCCL INFO Connected all rings, use ring PXN 0 GDR 1
+nccl-all-reduce-1-node-4gpu-worker-0:182:182 [1] NCCL INFO Connected all rings, use ring PXN 0 GDR 1
+     8388608       2097152     float     sum      -1   807.10   10.39   10.39       0   806.05   10.41   10.41       0
+    16777216       4194304     float     sum      -1  1590.49   10.55   10.55       0  1584.89   10.59   10.59       0
+    33554432       8388608     float     sum      -1  3133.36   10.71   10.71       0  3134.60   10.70   10.70       0
+    67108864      16777216     float     sum      -1  6218.57   10.79   10.79       0  6206.74   10.81   10.81       0
+   134217728      33554432     float     sum      -1  12321.7   10.89   10.89       0  12234.6   10.97   10.97       0
+   268435456      67108864     float     sum      -1  24585.1   10.92   10.92       0  24279.4   11.06   11.06       0
+   536870912     134217728     float     sum      -1  48524.1   11.06   11.06       0  48666.6   11.03   11.03       0
+  1073741824     268435456     float     sum      -1  96355.2   11.14   11.14       0  96566.4   11.12   11.12       0
+nccl-all-reduce-1-node-4gpu-worker-0:181:181 [0] NCCL INFO comm 0x3fb50640 rank 0 nranks 2 cudaDev 0 busId 3000 - Destroy COMPLETE
+nccl-all-reduce-1-node-4gpu-worker-0:182:182 [1] NCCL INFO comm 0x3474d90 rank 1 nranks 2 cudaDev 1 busId 4000 - Destroy COMPLETE
+# Out of bounds values : 0 OK
+# Avg bus bandwidth    : 10.8218 
+#
+# Collective test concluded: all_reduce_perf_mpi
+#
+
+nccl-all-reduce-1-node-4gpu-worker-0:181:181 [0] NCCL INFO ENV/Plugin: Closing env plugin ncclEnvDefault
+nccl-all-reduce-1-node-4gpu-worker-0:182:182 [1] NCCL INFO ENV/Plugin: Closing env plugin ncclEnvDefault
++ echo '-- GPU 2 & 3 --'
++ mpirun --map-by ppr:2:node --bind-to none -x LD_LIBRARY_PATH -x NCCL_DEBUG=INFO -x NCCL_DEBUG_SUBSYS=INIT,NET -x NCCL_SOCKET_IFNAME=eth0 -x NCCL_IB_DISABLE=1 -x NCCL_NET_PLUGIN=none -x NCCL_NET_GDR_LEVEL=PIX -x NCCL_DMABUF_ENABLE=0 -x CUDA_VISIBLE_DEVICES=2,3 /usr/local/bin/all_reduce_perf_mpi -b 8M -e 1G -f 2 -g 1
+-- GPU 2 & 3 --
+Warning: Permanently added '[nccl-all-reduce-1-node-4gpu-worker-0.nccl-all-reduce-1-node-4gpu.default.svc]:2222' (ED25519) to the list of known hosts.
+[LOG_CAT_ML] You must specify a valid HCA device by setting:
+-x HCOLL_MAIN_IB=<dev_name:port> or -x UCX_NET_DEVICES=<dev_name:port>.
+If no device was specified for HCOLL (or the calling library), automatic device detection will be run.
+In case of unfounded HCA device please contact your system administrator.
+[LOG_CAT_ML] You must specify a valid HCA device by setting:
+-x HCOLL_MAIN_IB=<dev_name:port> or -x UCX_NET_DEVICES=<dev_name:port>.
+If no device was specified for HCOLL (or the calling library), automatic device detection will be run.
+In case of unfounded HCA device please contact your system administrator.
+[nccl-all-reduce-1-node-4gpu-worker-0:00224] Error: ../../../../../ompi/mca/coll/hcoll/coll_hcoll_module.c:310 - mca_coll_hcoll_comm_query() Hcol library init failed
+[nccl-all-reduce-1-node-4gpu-worker-0:00225] Error: ../../../../../ompi/mca/coll/hcoll/coll_hcoll_module.c:310 - mca_coll_hcoll_comm_query() Hcol library init failed
+# nccl-tests version 2.18.3 nccl-headers=22903 nccl-library=22903
+# Collective test starting: all_reduce_perf_mpi
+# nThread 1 nGpus 1 minBytes 8388608 maxBytes 1073741824 step: 2(factor) warmup iters: 1 iters: 20 agg iters: 1 validation: 1 graph: 0 unalign: 0
+#
+# Using devices
+#  Rank  0 Group  0 Pid    224 on nccl-all-reduce-1-node-4gpu-worker-0 device  0 [0000:07:00] Tesla V100-SXM2-16GB
+#  Rank  1 Group  0 Pid    225 on nccl-all-reduce-1-node-4gpu-worker-0 device  1 [0000:08:00] Tesla V100-SXM2-16GB
+nccl-all-reduce-1-node-4gpu-worker-0:224:224 [0] NCCL INFO ENV/Plugin: Could not find: libnccl-env.so
+nccl-all-reduce-1-node-4gpu-worker-0:224:224 [0] NCCL INFO NCCL_SOCKET_IFNAME set to eth0
+nccl-all-reduce-1-node-4gpu-worker-0:224:224 [0] NCCL INFO cudaDriverVersion 13000
+nccl-all-reduce-1-node-4gpu-worker-0:224:224 [0] NCCL INFO NCCL version 2.29.3+cuda12.9
+nccl-all-reduce-1-node-4gpu-worker-0:224:224 [0] NCCL INFO NCCL git version stable dcf2a2fbe
+nccl-all-reduce-1-node-4gpu-worker-0:225:225 [1] NCCL INFO ENV/Plugin: Could not find: libnccl-env.so
+nccl-all-reduce-1-node-4gpu-worker-0:225:225 [1] NCCL INFO cudaDriverVersion 13000
+nccl-all-reduce-1-node-4gpu-worker-0:225:225 [1] NCCL INFO NCCL_SOCKET_IFNAME set to eth0
+nccl-all-reduce-1-node-4gpu-worker-0:225:225 [1] NCCL INFO NCCL version 2.29.3+cuda12.9
+nccl-all-reduce-1-node-4gpu-worker-0:225:225 [1] NCCL INFO NCCL git version stable dcf2a2fbe
+nccl-all-reduce-1-node-4gpu-worker-0:224:224 [0] NCCL INFO NCCL_NET_PLUGIN set by environment to none
+nccl-all-reduce-1-node-4gpu-worker-0:224:224 [0] NCCL INFO transport/net_ib/init.cc:370 -> 3
+nccl-all-reduce-1-node-4gpu-worker-0:224:224 [0] NCCL INFO Failed to initialize NET plugin IB
+nccl-all-reduce-1-node-4gpu-worker-0:224:224 [0] NCCL INFO NET/Socket : Using [0]eth0:10.42.1.240<0>
+nccl-all-reduce-1-node-4gpu-worker-0:224:224 [0] NCCL INFO Initialized NET plugin Socket
+nccl-all-reduce-1-node-4gpu-worker-0:224:224 [0] NCCL INFO Assigned NET plugin Socket to comm
+nccl-all-reduce-1-node-4gpu-worker-0:224:224 [0] NCCL INFO Using network Socket
+nccl-all-reduce-1-node-4gpu-worker-0:225:225 [1] NCCL INFO NCCL_NET_PLUGIN set by environment to none
+nccl-all-reduce-1-node-4gpu-worker-0:225:225 [1] NCCL INFO transport/net_ib/init.cc:370 -> 3
+nccl-all-reduce-1-node-4gpu-worker-0:225:225 [1] NCCL INFO Failed to initialize NET plugin IB
+nccl-all-reduce-1-node-4gpu-worker-0:225:225 [1] NCCL INFO NET/Socket : Using [0]eth0:10.42.1.240<0>
+nccl-all-reduce-1-node-4gpu-worker-0:225:225 [1] NCCL INFO Initialized NET plugin Socket
+nccl-all-reduce-1-node-4gpu-worker-0:225:225 [1] NCCL INFO Assigned NET plugin Socket to comm
+nccl-all-reduce-1-node-4gpu-worker-0:225:225 [1] NCCL INFO Using network Socket
+nccl-all-reduce-1-node-4gpu-worker-0:224:224 [0] NCCL INFO [Rank 0] ncclCommInitRankConfig comm 0x1e474750 rank 0 nranks 2 cudaDev 0 nvmlDev 2 busId 7000 commId 0x30b81d8ee942df23 - Init START
+nccl-all-reduce-1-node-4gpu-worker-0:225:225 [1] NCCL INFO [Rank 1] ncclCommInitRankConfig comm 0x4997e40 rank 1 nranks 2 cudaDev 1 nvmlDev 3 busId 8000 commId 0x30b81d8ee942df23 - Init START
+nccl-all-reduce-1-node-4gpu-worker-0:224:224 [0] NCCL INFO RAS client listening socket at ::1<28028>
+nccl-all-reduce-1-node-4gpu-worker-0:225:225 [1] NCCL INFO RAS client listening socket at ::1<28028>
+nccl-all-reduce-1-node-4gpu-worker-0:224:224 [0] NCCL INFO NET/Socket : GPU Direct RDMA Disabled for HCA 0 'eth0'
+nccl-all-reduce-1-node-4gpu-worker-0:225:225 [1] NCCL INFO NET/Socket : GPU Direct RDMA Disabled for HCA 0 'eth0'
+nccl-all-reduce-1-node-4gpu-worker-0:225:225 [1] NCCL INFO ncclTopoGetCpuAffinity: Affinity for GPU 3 is empty, ignoring. (GPU affinity =  ; CPU affinity = 0-7).
+nccl-all-reduce-1-node-4gpu-worker-0:225:225 [1] NCCL INFO NVLS multicast support is not available on dev 1 (NVLS_NCHANNELS 0)
+nccl-all-reduce-1-node-4gpu-worker-0:224:224 [0] NCCL INFO ncclTopoGetCpuAffinity: Affinity for GPU 2 is empty, ignoring. (GPU affinity =  ; CPU affinity = 0-7).
+nccl-all-reduce-1-node-4gpu-worker-0:224:224 [0] NCCL INFO NVLS multicast support is not available on dev 0 (NVLS_NCHANNELS 0)
+nccl-all-reduce-1-node-4gpu-worker-0:225:225 [1] NCCL INFO comm 0x4997e40 rank 1 nRanks 2 nNodes 1 localRanks 2 localRank 1 MNNVL 0
+nccl-all-reduce-1-node-4gpu-worker-0:225:225 [1] NCCL INFO Trees [0] -1/-1/-1->1->0 [1] -1/-1/-1->1->0
+nccl-all-reduce-1-node-4gpu-worker-0:225:225 [1] NCCL INFO P2P Chunksize set to 131072
+nccl-all-reduce-1-node-4gpu-worker-0:224:224 [0] NCCL INFO comm 0x1e474750 rank 0 nRanks 2 nNodes 1 localRanks 2 localRank 0 MNNVL 0
+nccl-all-reduce-1-node-4gpu-worker-0:224:224 [0] NCCL INFO Channel 00/02 : 0 1
+nccl-all-reduce-1-node-4gpu-worker-0:224:224 [0] NCCL INFO Channel 01/02 : 0 1
+nccl-all-reduce-1-node-4gpu-worker-0:224:224 [0] NCCL INFO Trees [0] 1/-1/-1->0->-1 [1] 1/-1/-1->0->-1
+nccl-all-reduce-1-node-4gpu-worker-0:224:224 [0] NCCL INFO P2P Chunksize set to 131072
+nccl-all-reduce-1-node-4gpu-worker-0:224:224 [0] NCCL INFO PROFILER/Plugin: Could not find: libnccl-profiler.so
+nccl-all-reduce-1-node-4gpu-worker-0:224:224 [0] NCCL INFO Check P2P Type isAllDirectP2p 1 directMode 0 isAllCudaP2p 1
+nccl-all-reduce-1-node-4gpu-worker-0:225:225 [1] NCCL INFO PROFILER/Plugin: Could not find: libnccl-profiler.so
+nccl-all-reduce-1-node-4gpu-worker-0:225:225 [1] NCCL INFO Check P2P Type isAllDirectP2p 1 directMode 0 isAllCudaP2p 1
+nccl-all-reduce-1-node-4gpu-worker-0:224:242 [0] NCCL INFO [Proxy Service] Device 0 CPU core 6
+nccl-all-reduce-1-node-4gpu-worker-0:224:243 [0] NCCL INFO [Proxy Service UDS] Device 0 CPU core 7
+nccl-all-reduce-1-node-4gpu-worker-0:225:241 [0] NCCL INFO [Proxy Service] Device 1 CPU core 6
+nccl-all-reduce-1-node-4gpu-worker-0:225:244 [0] NCCL INFO [Proxy Service UDS] Device 1 CPU core 5
+nccl-all-reduce-1-node-4gpu-worker-0:225:225 [1] NCCL INFO TUNER/Plugin: Could not find: libnccl-tuner.so
+nccl-all-reduce-1-node-4gpu-worker-0:225:225 [1] NCCL INFO threadThresholds 8/8/64 | 16/8/64 | 512 | 512
+nccl-all-reduce-1-node-4gpu-worker-0:225:225 [1] NCCL INFO 2 coll channels, 2 collnet channels, 0 nvls channels, 2 p2p channels, 2 p2p channels per peer
+nccl-all-reduce-1-node-4gpu-worker-0:224:224 [0] NCCL INFO TUNER/Plugin: Could not find: libnccl-tuner.so
+nccl-all-reduce-1-node-4gpu-worker-0:224:224 [0] NCCL INFO threadThresholds 8/8/64 | 16/8/64 | 512 | 512
+nccl-all-reduce-1-node-4gpu-worker-0:224:224 [0] NCCL INFO 2 coll channels, 2 collnet channels, 0 nvls channels, 2 p2p channels, 2 p2p channels per peer
+nccl-all-reduce-1-node-4gpu-worker-0:224:224 [0] NCCL INFO CC Off, workFifoBytes 1048576
+nccl-all-reduce-1-node-4gpu-worker-0:224:224 [0] NCCL INFO ncclCommInitRankConfig comm 0x1e474750 rank 0 nranks 2 cudaDev 0 nvmlDev 2 busId 7000 commId 0x30b81d8ee942df23 - Init COMPLETE
+nccl-all-reduce-1-node-4gpu-worker-0:224:224 [0] NCCL INFO Init timings - ncclCommInitRankConfig: rank 0 nranks 2 total 0.15 (kernels 0.12, alloc 0.02, bootstrap 0.00, allgathers 0.00, topo 0.01, graphs 0.00, connections 0.00, rest 0.00)
+nccl-all-reduce-1-node-4gpu-worker-0:225:225 [1] NCCL INFO ncclCommInitRankConfig comm 0x4997e40 rank 1 nranks 2 cudaDev 1 nvmlDev 3 busId 8000 commId 0x30b81d8ee942df23 - Init COMPLETE
+nccl-all-reduce-1-node-4gpu-worker-0:225:225 [1] NCCL INFO Init timings - ncclCommInitRankConfig: rank 1 nranks 2 total 0.15 (kernels 0.12, alloc 0.02, bootstrap 0.00, allgathers 0.00, topo 0.01, graphs 0.00, connections 0.00, rest 0.00)
+#
+#                                                              out-of-place                       in-place          
+#       size         count      type   redop    root     time   algbw   busbw  #wrong     time   algbw   busbw  #wrong 
+#        (B)    (elements)                               (us)  (GB/s)  (GB/s)             (us)  (GB/s)  (GB/s)         
+nccl-all-reduce-1-node-4gpu-worker-0:225:225 [1] NCCL INFO Symmetric VA size=16GB
+nccl-all-reduce-1-node-4gpu-worker-0:224:224 [0] NCCL INFO Symmetric VA size=16GB
+nccl-all-reduce-1-node-4gpu-worker-0:225:241 [1] NCCL INFO New proxy recv connection 0 from local rank 1, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:224:242 [0] NCCL INFO New proxy recv connection 0 from local rank 0, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:224:224 [0] NCCL INFO Connected to proxy localRank 0 -> connection 0x7eb3f0000d20
+nccl-all-reduce-1-node-4gpu-worker-0:225:225 [1] NCCL INFO Connected to proxy localRank 1 -> connection 0x7101a4000d20
+nccl-all-reduce-1-node-4gpu-worker-0:224:242 [0] NCCL INFO New proxy recv connection 1 from local rank 0, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:224:224 [0] NCCL INFO Connected to proxy localRank 0 -> connection 0x7eb3f0000d98
+nccl-all-reduce-1-node-4gpu-worker-0:225:241 [1] NCCL INFO New proxy recv connection 1 from local rank 1, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:225:225 [1] NCCL INFO Connected to proxy localRank 1 -> connection 0x7101a4000d98
+nccl-all-reduce-1-node-4gpu-worker-0:224:224 [0] NCCL INFO Channel 00/0 : 0[2] -> 1[3] via P2P/CUMEM
+nccl-all-reduce-1-node-4gpu-worker-0:224:242 [0] NCCL INFO New proxy send connection 2 from local rank 0, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:224:224 [0] NCCL INFO Connected to proxy localRank 0 -> connection 0x7eb3f0000e10
+nccl-all-reduce-1-node-4gpu-worker-0:225:225 [1] NCCL INFO Channel 00/0 : 1[3] -> 0[2] via P2P/CUMEM
+nccl-all-reduce-1-node-4gpu-worker-0:225:241 [1] NCCL INFO New proxy send connection 2 from local rank 1, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:225:225 [1] NCCL INFO Connected to proxy localRank 1 -> connection 0x7101a4000e10
+nccl-all-reduce-1-node-4gpu-worker-0:224:224 [0] NCCL INFO Channel 01/0 : 0[2] -> 1[3] via P2P/CUMEM
+nccl-all-reduce-1-node-4gpu-worker-0:224:242 [0] NCCL INFO New proxy send connection 3 from local rank 0, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:224:224 [0] NCCL INFO Connected to proxy localRank 0 -> connection 0x7eb3f0000e88
+nccl-all-reduce-1-node-4gpu-worker-0:225:225 [1] NCCL INFO Channel 01/0 : 1[3] -> 0[2] via P2P/CUMEM
+nccl-all-reduce-1-node-4gpu-worker-0:225:241 [1] NCCL INFO New proxy send connection 3 from local rank 1, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:225:225 [1] NCCL INFO Connected to proxy localRank 1 -> connection 0x7101a4000e88
+nccl-all-reduce-1-node-4gpu-worker-0:225:241 [1] NCCL INFO New proxy send connection 4 from local rank 0, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:224:224 [0] NCCL INFO Connected to proxy localRank 1 -> connection 0x7101a4000f00
+nccl-all-reduce-1-node-4gpu-worker-0:224:242 [0] NCCL INFO New proxy send connection 4 from local rank 1, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:225:225 [1] NCCL INFO Connected to proxy localRank 0 -> connection 0x7eb3f0000f00
+nccl-all-reduce-1-node-4gpu-worker-0:224:224 [0] NCCL INFO Connected all rings, use ring PXN 0 GDR 1
+nccl-all-reduce-1-node-4gpu-worker-0:225:225 [1] NCCL INFO Connected all rings, use ring PXN 0 GDR 1
+     8388608       2097152     float     sum      -1   810.93   10.34   10.34       0   811.53   10.34   10.34       0
+    16777216       4194304     float     sum      -1  1598.69   10.49   10.49       0  1588.74   10.56   10.56       0
+    33554432       8388608     float     sum      -1  3134.46   10.71   10.71       0  3142.60   10.68   10.68       0
+    67108864      16777216     float     sum      -1  6212.80   10.80   10.80       0  6165.36   10.88   10.88       0
+   134217728      33554432     float     sum      -1  12298.9   10.91   10.91       0  12221.6   10.98   10.98       0
+   268435456      67108864     float     sum      -1  24247.9   11.07   11.07       0  24113.6   11.13   11.13       0
+   536870912     134217728     float     sum      -1  48478.6   11.07   11.07       0  47967.7   11.19   11.19       0
+  1073741824     268435456     float     sum      -1  95801.5   11.21   11.21       0  96285.2   11.15   11.15       0
+nccl-all-reduce-1-node-4gpu-worker-0:224:224 [0] NCCL INFO comm 0x1e474750 rank 0 nranks 2 cudaDev 0 busId 7000 - Destroy COMPLETE
+nccl-all-reduce-1-node-4gpu-worker-0:225:225 [1] NCCL INFO comm 0x4997e40 rank 1 nranks 2 cudaDev 1 busId 8000 - Destroy COMPLETE
+# Out of bounds values : 0 OK
+# Avg bus bandwidth    : 10.8455 
+#
+# Collective test concluded: all_reduce_perf_mpi
+#
+
+nccl-all-reduce-1-node-4gpu-worker-0:225:225 [1] NCCL INFO ENV/Plugin: Closing env plugin ncclEnvDefault
+nccl-all-reduce-1-node-4gpu-worker-0:224:224 [0] NCCL INFO ENV/Plugin: Closing env plugin ncclEnvDefault
++ echo '-- GPU 0 & 2 --'
++ mpirun --map-by ppr:2:node --bind-to none -x LD_LIBRARY_PATH -x NCCL_DEBUG=INFO -x NCCL_DEBUG_SUBSYS=INIT,NET -x NCCL_SOCKET_IFNAME=eth0 -x NCCL_IB_DISABLE=1 -x NCCL_NET_PLUGIN=none -x NCCL_NET_GDR_LEVEL=PIX -x NCCL_DMABUF_ENABLE=0 -x CUDA_VISIBLE_DEVICES=0,2 /usr/local/bin/all_reduce_perf_mpi -b 8M -e 1G -f 2 -g 1
+-- GPU 0 & 2 --
+Warning: Permanently added '[nccl-all-reduce-1-node-4gpu-worker-0.nccl-all-reduce-1-node-4gpu.default.svc]:2222' (ED25519) to the list of known hosts.
+[LOG_CAT_ML] You must specify a valid HCA device by setting:
+-x HCOLL_MAIN_IB=<dev_name:port> or -x UCX_NET_DEVICES=<dev_name:port>.
+If no device was specified for HCOLL (or the calling library), automatic device detection will be run.
+In case of unfounded HCA device please contact your system administrator.
+[LOG_CAT_ML] You must specify a valid HCA device by setting:
+-x HCOLL_MAIN_IB=<dev_name:port> or -x UCX_NET_DEVICES=<dev_name:port>.
+If no device was specified for HCOLL (or the calling library), automatic device detection will be run.
+In case of unfounded HCA device please contact your system administrator.
+[nccl-all-reduce-1-node-4gpu-worker-0:00268] Error: ../../../../../ompi/mca/coll/hcoll/coll_hcoll_module.c:310 - mca_coll_hcoll_comm_query() Hcol library init failed
+[nccl-all-reduce-1-node-4gpu-worker-0:00267] Error: ../../../../../ompi/mca/coll/hcoll/coll_hcoll_module.c:310 - mca_coll_hcoll_comm_query() Hcol library init failed
+# nccl-tests version 2.18.3 nccl-headers=22903 nccl-library=22903
+# Collective test starting: all_reduce_perf_mpi
+# nThread 1 nGpus 1 minBytes 8388608 maxBytes 1073741824 step: 2(factor) warmup iters: 1 iters: 20 agg iters: 1 validation: 1 graph: 0 unalign: 0
+#
+# Using devices
+#  Rank  0 Group  0 Pid    267 on nccl-all-reduce-1-node-4gpu-worker-0 device  0 [0000:03:00] Tesla V100-SXM2-16GB
+#  Rank  1 Group  0 Pid    268 on nccl-all-reduce-1-node-4gpu-worker-0 device  1 [0000:07:00] Tesla V100-SXM2-16GB
+nccl-all-reduce-1-node-4gpu-worker-0:267:267 [0] NCCL INFO ENV/Plugin: Could not find: libnccl-env.so
+nccl-all-reduce-1-node-4gpu-worker-0:267:267 [0] NCCL INFO NCCL_SOCKET_IFNAME set to eth0
+nccl-all-reduce-1-node-4gpu-worker-0:267:267 [0] NCCL INFO cudaDriverVersion 13000
+nccl-all-reduce-1-node-4gpu-worker-0:267:267 [0] NCCL INFO NCCL version 2.29.3+cuda12.9
+nccl-all-reduce-1-node-4gpu-worker-0:267:267 [0] NCCL INFO NCCL git version stable dcf2a2fbe
+nccl-all-reduce-1-node-4gpu-worker-0:268:268 [1] NCCL INFO ENV/Plugin: Could not find: libnccl-env.so
+nccl-all-reduce-1-node-4gpu-worker-0:268:268 [1] NCCL INFO cudaDriverVersion 13000
+nccl-all-reduce-1-node-4gpu-worker-0:268:268 [1] NCCL INFO NCCL_SOCKET_IFNAME set to eth0
+nccl-all-reduce-1-node-4gpu-worker-0:268:268 [1] NCCL INFO NCCL version 2.29.3+cuda12.9
+nccl-all-reduce-1-node-4gpu-worker-0:268:268 [1] NCCL INFO NCCL git version stable dcf2a2fbe
+nccl-all-reduce-1-node-4gpu-worker-0:268:268 [1] NCCL INFO NCCL_NET_PLUGIN set by environment to none
+nccl-all-reduce-1-node-4gpu-worker-0:268:268 [1] NCCL INFO transport/net_ib/init.cc:370 -> 3
+nccl-all-reduce-1-node-4gpu-worker-0:268:268 [1] NCCL INFO Failed to initialize NET plugin IB
+nccl-all-reduce-1-node-4gpu-worker-0:268:268 [1] NCCL INFO NET/Socket : Using [0]eth0:10.42.1.240<0>
+nccl-all-reduce-1-node-4gpu-worker-0:268:268 [1] NCCL INFO Initialized NET plugin Socket
+nccl-all-reduce-1-node-4gpu-worker-0:267:267 [0] NCCL INFO NCCL_NET_PLUGIN set by environment to none
+nccl-all-reduce-1-node-4gpu-worker-0:267:267 [0] NCCL INFO transport/net_ib/init.cc:370 -> 3
+nccl-all-reduce-1-node-4gpu-worker-0:267:267 [0] NCCL INFO Failed to initialize NET plugin IB
+nccl-all-reduce-1-node-4gpu-worker-0:268:268 [1] NCCL INFO Assigned NET plugin Socket to comm
+nccl-all-reduce-1-node-4gpu-worker-0:268:268 [1] NCCL INFO Using network Socket
+nccl-all-reduce-1-node-4gpu-worker-0:267:267 [0] NCCL INFO NET/Socket : Using [0]eth0:10.42.1.240<0>
+nccl-all-reduce-1-node-4gpu-worker-0:267:267 [0] NCCL INFO Initialized NET plugin Socket
+nccl-all-reduce-1-node-4gpu-worker-0:267:267 [0] NCCL INFO Assigned NET plugin Socket to comm
+nccl-all-reduce-1-node-4gpu-worker-0:267:267 [0] NCCL INFO Using network Socket
+nccl-all-reduce-1-node-4gpu-worker-0:267:267 [0] NCCL INFO [Rank 0] ncclCommInitRankConfig comm 0x36702f40 rank 0 nranks 2 cudaDev 0 nvmlDev 0 busId 3000 commId 0xc2d7e2e723b00c17 - Init START
+nccl-all-reduce-1-node-4gpu-worker-0:268:268 [1] NCCL INFO [Rank 1] ncclCommInitRankConfig comm 0x14890880 rank 1 nranks 2 cudaDev 1 nvmlDev 2 busId 7000 commId 0xc2d7e2e723b00c17 - Init START
+nccl-all-reduce-1-node-4gpu-worker-0:268:268 [1] NCCL INFO RAS client listening socket at ::1<28028>
+nccl-all-reduce-1-node-4gpu-worker-0:267:267 [0] NCCL INFO RAS client listening socket at ::1<28028>
+nccl-all-reduce-1-node-4gpu-worker-0:268:268 [1] NCCL INFO NET/Socket : GPU Direct RDMA Disabled for HCA 0 'eth0'
+nccl-all-reduce-1-node-4gpu-worker-0:267:267 [0] NCCL INFO NET/Socket : GPU Direct RDMA Disabled for HCA 0 'eth0'
+nccl-all-reduce-1-node-4gpu-worker-0:267:267 [0] NCCL INFO ncclTopoGetCpuAffinity: Affinity for GPU 0 is empty, ignoring. (GPU affinity =  ; CPU affinity = 0-7).
+nccl-all-reduce-1-node-4gpu-worker-0:267:267 [0] NCCL INFO NVLS multicast support is not available on dev 0 (NVLS_NCHANNELS 0)
+nccl-all-reduce-1-node-4gpu-worker-0:268:268 [1] NCCL INFO ncclTopoGetCpuAffinity: Affinity for GPU 2 is empty, ignoring. (GPU affinity =  ; CPU affinity = 0-7).
+nccl-all-reduce-1-node-4gpu-worker-0:268:268 [1] NCCL INFO NVLS multicast support is not available on dev 1 (NVLS_NCHANNELS 0)
+nccl-all-reduce-1-node-4gpu-worker-0:268:268 [1] NCCL INFO comm 0x14890880 rank 1 nRanks 2 nNodes 1 localRanks 2 localRank 1 MNNVL 0
+nccl-all-reduce-1-node-4gpu-worker-0:268:268 [1] NCCL INFO Trees [0] -1/-1/-1->1->0 [1] -1/-1/-1->1->0 [2] -1/-1/-1->1->0 [3] 0/-1/-1->1->-1 [4] 0/-1/-1->1->-1 [5] 0/-1/-1->1->-1 [6] -1/-1/-1->1->0 [7] -1/-1/-1->1->0 [8] -1/-1/-1->1->0 [9] 0/-1/-1->1->-1 [10] 0/-1/-1->1->-1 [11] 0/-1/-1->1->-1
+nccl-all-reduce-1-node-4gpu-worker-0:268:268 [1] NCCL INFO P2P Chunksize set to 524288
+nccl-all-reduce-1-node-4gpu-worker-0:267:267 [0] NCCL INFO comm 0x36702f40 rank 0 nRanks 2 nNodes 1 localRanks 2 localRank 0 MNNVL 0
+nccl-all-reduce-1-node-4gpu-worker-0:267:267 [0] NCCL INFO Channel 00/12 : 0 1
+nccl-all-reduce-1-node-4gpu-worker-0:267:267 [0] NCCL INFO Channel 01/12 : 0 1
+nccl-all-reduce-1-node-4gpu-worker-0:267:267 [0] NCCL INFO Channel 02/12 : 0 1
+nccl-all-reduce-1-node-4gpu-worker-0:267:267 [0] NCCL INFO Channel 03/12 : 0 1
+nccl-all-reduce-1-node-4gpu-worker-0:267:267 [0] NCCL INFO Channel 04/12 : 0 1
+nccl-all-reduce-1-node-4gpu-worker-0:267:267 [0] NCCL INFO Channel 05/12 : 0 1
+nccl-all-reduce-1-node-4gpu-worker-0:267:267 [0] NCCL INFO Channel 06/12 : 0 1
+nccl-all-reduce-1-node-4gpu-worker-0:267:267 [0] NCCL INFO Channel 07/12 : 0 1
+nccl-all-reduce-1-node-4gpu-worker-0:267:267 [0] NCCL INFO Channel 08/12 : 0 1
+nccl-all-reduce-1-node-4gpu-worker-0:267:267 [0] NCCL INFO Channel 09/12 : 0 1
+nccl-all-reduce-1-node-4gpu-worker-0:267:267 [0] NCCL INFO Channel 10/12 : 0 1
+nccl-all-reduce-1-node-4gpu-worker-0:267:267 [0] NCCL INFO Channel 11/12 : 0 1
+nccl-all-reduce-1-node-4gpu-worker-0:267:267 [0] NCCL INFO Trees [0] 1/-1/-1->0->-1 [1] 1/-1/-1->0->-1 [2] 1/-1/-1->0->-1 [3] -1/-1/-1->0->1 [4] -1/-1/-1->0->1 [5] -1/-1/-1->0->1 [6] 1/-1/-1->0->-1 [7] 1/-1/-1->0->-1 [8] 1/-1/-1->0->-1 [9] -1/-1/-1->0->1 [10] -1/-1/-1->0->1 [11] -1/-1/-1->0->1
+nccl-all-reduce-1-node-4gpu-worker-0:267:267 [0] NCCL INFO P2P Chunksize set to 524288
+nccl-all-reduce-1-node-4gpu-worker-0:267:267 [0] NCCL INFO PROFILER/Plugin: Could not find: libnccl-profiler.so
+nccl-all-reduce-1-node-4gpu-worker-0:267:267 [0] NCCL INFO Check P2P Type isAllDirectP2p 1 directMode 0 isAllCudaP2p 1
+nccl-all-reduce-1-node-4gpu-worker-0:268:268 [1] NCCL INFO PROFILER/Plugin: Could not find: libnccl-profiler.so
+nccl-all-reduce-1-node-4gpu-worker-0:268:268 [1] NCCL INFO Check P2P Type isAllDirectP2p 1 directMode 0 isAllCudaP2p 1
+nccl-all-reduce-1-node-4gpu-worker-0:267:285 [0] NCCL INFO [Proxy Service] Device 0 CPU core 7
+nccl-all-reduce-1-node-4gpu-worker-0:268:284 [0] NCCL INFO [Proxy Service] Device 1 CPU core 1
+nccl-all-reduce-1-node-4gpu-worker-0:267:287 [0] NCCL INFO [Proxy Service UDS] Device 0 CPU core 0
+nccl-all-reduce-1-node-4gpu-worker-0:268:286 [0] NCCL INFO [Proxy Service UDS] Device 1 CPU core 2
+nccl-all-reduce-1-node-4gpu-worker-0:267:267 [0] NCCL INFO TUNER/Plugin: Could not find: libnccl-tuner.so
+nccl-all-reduce-1-node-4gpu-worker-0:267:267 [0] NCCL INFO threadThresholds 8/8/64 | 16/8/64 | 512 | 512
+nccl-all-reduce-1-node-4gpu-worker-0:267:267 [0] NCCL INFO 12 coll channels, 12 collnet channels, 0 nvls channels, 16 p2p channels, 16 p2p channels per peer
+nccl-all-reduce-1-node-4gpu-worker-0:268:268 [1] NCCL INFO TUNER/Plugin: Could not find: libnccl-tuner.so
+nccl-all-reduce-1-node-4gpu-worker-0:268:268 [1] NCCL INFO threadThresholds 8/8/64 | 16/8/64 | 512 | 512
+nccl-all-reduce-1-node-4gpu-worker-0:268:268 [1] NCCL INFO 12 coll channels, 12 collnet channels, 0 nvls channels, 16 p2p channels, 16 p2p channels per peer
+nccl-all-reduce-1-node-4gpu-worker-0:267:267 [0] NCCL INFO CC Off, workFifoBytes 1048576
+nccl-all-reduce-1-node-4gpu-worker-0:267:267 [0] NCCL INFO ncclCommInitRankConfig comm 0x36702f40 rank 0 nranks 2 cudaDev 0 nvmlDev 0 busId 3000 commId 0xc2d7e2e723b00c17 - Init COMPLETE
+nccl-all-reduce-1-node-4gpu-worker-0:267:267 [0] NCCL INFO Init timings - ncclCommInitRankConfig: rank 0 nranks 2 total 0.16 (kernels 0.12, alloc 0.02, bootstrap 0.00, allgathers 0.00, topo 0.01, graphs 0.00, connections 0.01, rest 0.00)
+nccl-all-reduce-1-node-4gpu-worker-0:268:268 [1] NCCL INFO ncclCommInitRankConfig comm 0x14890880 rank 1 nranks 2 cudaDev 1 nvmlDev 2 busId 7000 commId 0xc2d7e2e723b00c17 - Init COMPLETE
+nccl-all-reduce-1-node-4gpu-worker-0:268:268 [1] NCCL INFO Init timings - ncclCommInitRankConfig: rank 1 nranks 2 total 0.16 (kernels 0.12, alloc 0.02, bootstrap 0.00, allgathers 0.00, topo 0.01, graphs 0.00, connections 0.01, rest 0.00)
+#
+#                                                              out-of-place                       in-place          
+#       size         count      type   redop    root     time   algbw   busbw  #wrong     time   algbw   busbw  #wrong 
+#        (B)    (elements)                               (us)  (GB/s)  (GB/s)             (us)  (GB/s)  (GB/s)         
+nccl-all-reduce-1-node-4gpu-worker-0:267:267 [0] NCCL INFO Symmetric VA size=16GB
+nccl-all-reduce-1-node-4gpu-worker-0:268:268 [1] NCCL INFO Symmetric VA size=16GB
+nccl-all-reduce-1-node-4gpu-worker-0:267:285 [0] NCCL INFO New proxy recv connection 0 from local rank 0, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:267:267 [0] NCCL INFO Connected to proxy localRank 0 -> connection 0x7f0700000d20
+nccl-all-reduce-1-node-4gpu-worker-0:268:284 [1] NCCL INFO New proxy recv connection 0 from local rank 1, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:268:268 [1] NCCL INFO Connected to proxy localRank 1 -> connection 0x77daa4000d20
+nccl-all-reduce-1-node-4gpu-worker-0:267:285 [0] NCCL INFO New proxy recv connection 1 from local rank 0, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:267:267 [0] NCCL INFO Connected to proxy localRank 0 -> connection 0x7f0700000d98
+nccl-all-reduce-1-node-4gpu-worker-0:268:284 [1] NCCL INFO New proxy recv connection 1 from local rank 1, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:268:268 [1] NCCL INFO Connected to proxy localRank 1 -> connection 0x77daa4000d98
+nccl-all-reduce-1-node-4gpu-worker-0:267:285 [0] NCCL INFO New proxy recv connection 2 from local rank 0, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:267:267 [0] NCCL INFO Connected to proxy localRank 0 -> connection 0x7f0700000e10
+nccl-all-reduce-1-node-4gpu-worker-0:267:285 [0] NCCL INFO New proxy recv connection 3 from local rank 0, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:267:267 [0] NCCL INFO Connected to proxy localRank 0 -> connection 0x7f0700000e88
+nccl-all-reduce-1-node-4gpu-worker-0:268:284 [1] NCCL INFO New proxy recv connection 2 from local rank 1, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:268:268 [1] NCCL INFO Connected to proxy localRank 1 -> connection 0x77daa4000e10
+nccl-all-reduce-1-node-4gpu-worker-0:267:285 [0] NCCL INFO New proxy recv connection 4 from local rank 0, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:267:267 [0] NCCL INFO Connected to proxy localRank 0 -> connection 0x7f0700000f00
+nccl-all-reduce-1-node-4gpu-worker-0:268:284 [1] NCCL INFO New proxy recv connection 3 from local rank 1, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:268:268 [1] NCCL INFO Connected to proxy localRank 1 -> connection 0x77daa4000e88
+nccl-all-reduce-1-node-4gpu-worker-0:267:285 [0] NCCL INFO New proxy recv connection 5 from local rank 0, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:267:267 [0] NCCL INFO Connected to proxy localRank 0 -> connection 0x7f0700000f78
+nccl-all-reduce-1-node-4gpu-worker-0:268:284 [1] NCCL INFO New proxy recv connection 4 from local rank 1, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:268:268 [1] NCCL INFO Connected to proxy localRank 1 -> connection 0x77daa4000f00
+nccl-all-reduce-1-node-4gpu-worker-0:267:285 [0] NCCL INFO New proxy recv connection 6 from local rank 0, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:267:267 [0] NCCL INFO Connected to proxy localRank 0 -> connection 0x7f0700000ff0
+nccl-all-reduce-1-node-4gpu-worker-0:268:284 [1] NCCL INFO New proxy recv connection 5 from local rank 1, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:268:268 [1] NCCL INFO Connected to proxy localRank 1 -> connection 0x77daa4000f78
+nccl-all-reduce-1-node-4gpu-worker-0:267:285 [0] NCCL INFO New proxy recv connection 7 from local rank 0, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:267:267 [0] NCCL INFO Connected to proxy localRank 0 -> connection 0x7f0700001068
+nccl-all-reduce-1-node-4gpu-worker-0:268:284 [1] NCCL INFO New proxy recv connection 6 from local rank 1, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:268:268 [1] NCCL INFO Connected to proxy localRank 1 -> connection 0x77daa4000ff0
+nccl-all-reduce-1-node-4gpu-worker-0:267:285 [0] NCCL INFO New proxy recv connection 8 from local rank 0, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:267:267 [0] NCCL INFO Connected to proxy localRank 0 -> connection 0x7f07000010e0
+nccl-all-reduce-1-node-4gpu-worker-0:267:285 [0] NCCL INFO New proxy recv connection 9 from local rank 0, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:267:267 [0] NCCL INFO Connected to proxy localRank 0 -> connection 0x7f0700001158
+nccl-all-reduce-1-node-4gpu-worker-0:268:284 [1] NCCL INFO New proxy recv connection 7 from local rank 1, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:268:268 [1] NCCL INFO Connected to proxy localRank 1 -> connection 0x77daa4001068
+nccl-all-reduce-1-node-4gpu-worker-0:267:285 [0] NCCL INFO New proxy recv connection 10 from local rank 0, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:267:267 [0] NCCL INFO Connected to proxy localRank 0 -> connection 0x7f07000011d0
+nccl-all-reduce-1-node-4gpu-worker-0:268:284 [1] NCCL INFO New proxy recv connection 8 from local rank 1, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:268:268 [1] NCCL INFO Connected to proxy localRank 1 -> connection 0x77daa40010e0
+nccl-all-reduce-1-node-4gpu-worker-0:267:285 [0] NCCL INFO New proxy recv connection 11 from local rank 0, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:267:267 [0] NCCL INFO Connected to proxy localRank 0 -> connection 0x7f0700001248
+nccl-all-reduce-1-node-4gpu-worker-0:268:284 [1] NCCL INFO New proxy recv connection 9 from local rank 1, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:268:268 [1] NCCL INFO Connected to proxy localRank 1 -> connection 0x77daa4001158
+nccl-all-reduce-1-node-4gpu-worker-0:267:267 [0] NCCL INFO Channel 00/0 : 0[0] -> 1[2] via P2P/CUMEM
+nccl-all-reduce-1-node-4gpu-worker-0:267:285 [0] NCCL INFO New proxy send connection 12 from local rank 0, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:267:267 [0] NCCL INFO Connected to proxy localRank 0 -> connection 0x7f07000012c0
+nccl-all-reduce-1-node-4gpu-worker-0:268:284 [1] NCCL INFO New proxy recv connection 10 from local rank 1, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:268:268 [1] NCCL INFO Connected to proxy localRank 1 -> connection 0x77daa40011d0
+nccl-all-reduce-1-node-4gpu-worker-0:267:267 [0] NCCL INFO Channel 01/0 : 0[0] -> 1[2] via P2P/CUMEM
+nccl-all-reduce-1-node-4gpu-worker-0:267:285 [0] NCCL INFO New proxy send connection 13 from local rank 0, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:267:267 [0] NCCL INFO Connected to proxy localRank 0 -> connection 0x7f0700001338
+nccl-all-reduce-1-node-4gpu-worker-0:268:284 [1] NCCL INFO New proxy recv connection 11 from local rank 1, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:268:268 [1] NCCL INFO Connected to proxy localRank 1 -> connection 0x77daa4001248
+nccl-all-reduce-1-node-4gpu-worker-0:267:267 [0] NCCL INFO Channel 02/0 : 0[0] -> 1[2] via P2P/CUMEM
+nccl-all-reduce-1-node-4gpu-worker-0:267:285 [0] NCCL INFO New proxy send connection 14 from local rank 0, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:267:267 [0] NCCL INFO Connected to proxy localRank 0 -> connection 0x7f07000013b0
+nccl-all-reduce-1-node-4gpu-worker-0:268:268 [1] NCCL INFO Channel 00/0 : 1[2] -> 0[0] via P2P/CUMEM
+nccl-all-reduce-1-node-4gpu-worker-0:268:284 [1] NCCL INFO New proxy send connection 12 from local rank 1, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:268:268 [1] NCCL INFO Connected to proxy localRank 1 -> connection 0x77daa40012c0
+nccl-all-reduce-1-node-4gpu-worker-0:267:267 [0] NCCL INFO Channel 03/0 : 0[0] -> 1[2] via P2P/CUMEM
+nccl-all-reduce-1-node-4gpu-worker-0:267:285 [0] NCCL INFO New proxy send connection 15 from local rank 0, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:267:267 [0] NCCL INFO Connected to proxy localRank 0 -> connection 0x7f0700001428
+nccl-all-reduce-1-node-4gpu-worker-0:268:268 [1] NCCL INFO Channel 01/0 : 1[2] -> 0[0] via P2P/CUMEM
+nccl-all-reduce-1-node-4gpu-worker-0:267:267 [0] NCCL INFO Channel 04/0 : 0[0] -> 1[2] via P2P/CUMEM
+nccl-all-reduce-1-node-4gpu-worker-0:268:284 [1] NCCL INFO New proxy send connection 13 from local rank 1, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:268:268 [1] NCCL INFO Connected to proxy localRank 1 -> connection 0x77daa4001338
+nccl-all-reduce-1-node-4gpu-worker-0:267:285 [0] NCCL INFO New proxy send connection 16 from local rank 0, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:267:267 [0] NCCL INFO Connected to proxy localRank 0 -> connection 0x7f07000014a0
+nccl-all-reduce-1-node-4gpu-worker-0:267:267 [0] NCCL INFO Channel 05/0 : 0[0] -> 1[2] via P2P/CUMEM
+nccl-all-reduce-1-node-4gpu-worker-0:267:285 [0] NCCL INFO New proxy send connection 17 from local rank 0, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:268:268 [1] NCCL INFO Channel 02/0 : 1[2] -> 0[0] via P2P/CUMEM
+nccl-all-reduce-1-node-4gpu-worker-0:267:267 [0] NCCL INFO Connected to proxy localRank 0 -> connection 0x7f0700001518
+nccl-all-reduce-1-node-4gpu-worker-0:268:284 [1] NCCL INFO New proxy send connection 14 from local rank 1, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:268:268 [1] NCCL INFO Connected to proxy localRank 1 -> connection 0x77daa40013b0
+nccl-all-reduce-1-node-4gpu-worker-0:267:267 [0] NCCL INFO Channel 06/0 : 0[0] -> 1[2] via P2P/CUMEM
+nccl-all-reduce-1-node-4gpu-worker-0:267:285 [0] NCCL INFO New proxy send connection 18 from local rank 0, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:267:267 [0] NCCL INFO Connected to proxy localRank 0 -> connection 0x7f0700001590
+nccl-all-reduce-1-node-4gpu-worker-0:268:268 [1] NCCL INFO Channel 03/0 : 1[2] -> 0[0] via P2P/CUMEM
+nccl-all-reduce-1-node-4gpu-worker-0:268:284 [1] NCCL INFO New proxy send connection 15 from local rank 1, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:268:268 [1] NCCL INFO Connected to proxy localRank 1 -> connection 0x77daa4001428
+nccl-all-reduce-1-node-4gpu-worker-0:267:267 [0] NCCL INFO Channel 07/0 : 0[0] -> 1[2] via P2P/CUMEM
+nccl-all-reduce-1-node-4gpu-worker-0:267:285 [0] NCCL INFO New proxy send connection 19 from local rank 0, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:267:267 [0] NCCL INFO Connected to proxy localRank 0 -> connection 0x7f0700001608
+nccl-all-reduce-1-node-4gpu-worker-0:268:268 [1] NCCL INFO Channel 04/0 : 1[2] -> 0[0] via P2P/CUMEM
+nccl-all-reduce-1-node-4gpu-worker-0:268:284 [1] NCCL INFO New proxy send connection 16 from local rank 1, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:268:268 [1] NCCL INFO Connected to proxy localRank 1 -> connection 0x77daa40014a0
+nccl-all-reduce-1-node-4gpu-worker-0:267:267 [0] NCCL INFO Channel 08/0 : 0[0] -> 1[2] via P2P/CUMEM
+nccl-all-reduce-1-node-4gpu-worker-0:267:285 [0] NCCL INFO New proxy send connection 20 from local rank 0, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:267:267 [0] NCCL INFO Connected to proxy localRank 0 -> connection 0x7f0700001680
+nccl-all-reduce-1-node-4gpu-worker-0:268:268 [1] NCCL INFO Channel 05/0 : 1[2] -> 0[0] via P2P/CUMEM
+nccl-all-reduce-1-node-4gpu-worker-0:268:284 [1] NCCL INFO New proxy send connection 17 from local rank 1, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:268:268 [1] NCCL INFO Connected to proxy localRank 1 -> connection 0x77daa4001518
+nccl-all-reduce-1-node-4gpu-worker-0:267:267 [0] NCCL INFO Channel 09/0 : 0[0] -> 1[2] via P2P/CUMEM
+nccl-all-reduce-1-node-4gpu-worker-0:267:285 [0] NCCL INFO New proxy send connection 21 from local rank 0, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:267:267 [0] NCCL INFO Connected to proxy localRank 0 -> connection 0x7f07000016f8
+nccl-all-reduce-1-node-4gpu-worker-0:268:268 [1] NCCL INFO Channel 06/0 : 1[2] -> 0[0] via P2P/CUMEM
+nccl-all-reduce-1-node-4gpu-worker-0:268:284 [1] NCCL INFO New proxy send connection 18 from local rank 1, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:268:268 [1] NCCL INFO Connected to proxy localRank 1 -> connection 0x77daa4001590
+nccl-all-reduce-1-node-4gpu-worker-0:267:267 [0] NCCL INFO Channel 10/0 : 0[0] -> 1[2] via P2P/CUMEM
+nccl-all-reduce-1-node-4gpu-worker-0:267:285 [0] NCCL INFO New proxy send connection 22 from local rank 0, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:267:267 [0] NCCL INFO Connected to proxy localRank 0 -> connection 0x7f0700001770
+nccl-all-reduce-1-node-4gpu-worker-0:268:268 [1] NCCL INFO Channel 07/0 : 1[2] -> 0[0] via P2P/CUMEM
+nccl-all-reduce-1-node-4gpu-worker-0:267:267 [0] NCCL INFO Channel 11/0 : 0[0] -> 1[2] via P2P/CUMEM
+nccl-all-reduce-1-node-4gpu-worker-0:268:284 [1] NCCL INFO New proxy send connection 19 from local rank 1, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:268:268 [1] NCCL INFO Connected to proxy localRank 1 -> connection 0x77daa4001608
+nccl-all-reduce-1-node-4gpu-worker-0:267:285 [0] NCCL INFO New proxy send connection 23 from local rank 0, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:267:267 [0] NCCL INFO Connected to proxy localRank 0 -> connection 0x7f07000017e8
+nccl-all-reduce-1-node-4gpu-worker-0:268:268 [1] NCCL INFO Channel 08/0 : 1[2] -> 0[0] via P2P/CUMEM
+nccl-all-reduce-1-node-4gpu-worker-0:268:284 [1] NCCL INFO New proxy send connection 20 from local rank 1, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:268:268 [1] NCCL INFO Connected to proxy localRank 1 -> connection 0x77daa4001680
+nccl-all-reduce-1-node-4gpu-worker-0:268:268 [1] NCCL INFO Channel 09/0 : 1[2] -> 0[0] via P2P/CUMEM
+nccl-all-reduce-1-node-4gpu-worker-0:268:284 [1] NCCL INFO New proxy send connection 21 from local rank 1, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:268:268 [1] NCCL INFO Connected to proxy localRank 1 -> connection 0x77daa40016f8
+nccl-all-reduce-1-node-4gpu-worker-0:268:268 [1] NCCL INFO Channel 10/0 : 1[2] -> 0[0] via P2P/CUMEM
+nccl-all-reduce-1-node-4gpu-worker-0:268:284 [1] NCCL INFO New proxy send connection 22 from local rank 1, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:268:268 [1] NCCL INFO Connected to proxy localRank 1 -> connection 0x77daa4001770
+nccl-all-reduce-1-node-4gpu-worker-0:268:268 [1] NCCL INFO Channel 11/0 : 1[2] -> 0[0] via P2P/CUMEM
+nccl-all-reduce-1-node-4gpu-worker-0:268:284 [1] NCCL INFO New proxy send connection 23 from local rank 1, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:268:268 [1] NCCL INFO Connected to proxy localRank 1 -> connection 0x77daa40017e8
+nccl-all-reduce-1-node-4gpu-worker-0:268:284 [1] NCCL INFO New proxy send connection 24 from local rank 0, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:267:267 [0] NCCL INFO Connected to proxy localRank 1 -> connection 0x77daa4001860
+nccl-all-reduce-1-node-4gpu-worker-0:267:285 [0] NCCL INFO New proxy send connection 24 from local rank 1, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:268:268 [1] NCCL INFO Connected to proxy localRank 0 -> connection 0x7f0700001860
+nccl-all-reduce-1-node-4gpu-worker-0:268:268 [1] NCCL INFO Connected all rings, use ring PXN 0 GDR 1
+nccl-all-reduce-1-node-4gpu-worker-0:267:267 [0] NCCL INFO Connected all rings, use ring PXN 0 GDR 1
+     8388608       2097152     float     sum      -1   127.06   66.02   66.02       0   128.59   65.24   65.24       0
+    16777216       4194304     float     sum      -1   208.23   80.57   80.57       0   210.98   79.52   79.52       0
+    33554432       8388608     float     sum      -1   366.55   91.54   91.54       0   362.58   92.54   92.54       0
+    67108864      16777216     float     sum      -1   667.71  100.51  100.51       0   673.15   99.69   99.69       0
+   134217728      33554432     float     sum      -1  1285.26  104.43  104.43       0  1293.55  103.76  103.76       0
+   268435456      67108864     float     sum      -1  2492.23  107.71  107.71       0  2504.42  107.18  107.18       0
+   536870912     134217728     float     sum      -1  4821.13  111.36  111.36       0  4843.21  110.85  110.85       0
+  1073741824     268435456     float     sum      -1  9301.62  115.44  115.44       0  9341.59  114.94  114.94       0
+nccl-all-reduce-1-node-4gpu-worker-0:268:268 [1] NCCL INFO comm 0x14890880 rank 1 nranks 2 cudaDev 1 busId 7000 - Destroy COMPLETE
+nccl-all-reduce-1-node-4gpu-worker-0:267:267 [0] NCCL INFO comm 0x36702f40 rank 0 nranks 2 cudaDev 0 busId 3000 - Destroy COMPLETE
+# Out of bounds values : 0 OK
+# Avg bus bandwidth    : 96.956 
+#
+# Collective test concluded: all_reduce_perf_mpi
+#
+
+nccl-all-reduce-1-node-4gpu-worker-0:268:268 [1] NCCL INFO ENV/Plugin: Closing env plugin ncclEnvDefault
+nccl-all-reduce-1-node-4gpu-worker-0:267:267 [0] NCCL INFO ENV/Plugin: Closing env plugin ncclEnvDefault
+-- GPU 1 & 3 --
++ echo '-- GPU 1 & 3 --'
++ mpirun --map-by ppr:2:node --bind-to none -x LD_LIBRARY_PATH -x NCCL_DEBUG=INFO -x NCCL_DEBUG_SUBSYS=INIT,NET -x NCCL_SOCKET_IFNAME=eth0 -x NCCL_IB_DISABLE=1 -x NCCL_NET_PLUGIN=none -x NCCL_NET_GDR_LEVEL=PIX -x NCCL_DMABUF_ENABLE=0 -x CUDA_VISIBLE_DEVICES=1,3 /usr/local/bin/all_reduce_perf_mpi -b 8M -e 1G -f 2 -g 1
+Warning: Permanently added '[nccl-all-reduce-1-node-4gpu-worker-0.nccl-all-reduce-1-node-4gpu.default.svc]:2222' (ED25519) to the list of known hosts.
+[LOG_CAT_ML] You must specify a valid HCA device by setting:
+-x HCOLL_MAIN_IB=<dev_name:port> or -x UCX_NET_DEVICES=<dev_name:port>.
+If no device was specified for HCOLL (or the calling library), automatic device detection will be run.
+In case of unfounded HCA device please contact your system administrator.
+[nccl-all-reduce-1-node-4gpu-worker-0:00310] Error: ../../../../../ompi/mca/coll/hcoll/coll_hcoll_module.c:310 - mca_coll_hcoll_comm_query() Hcol library init failed
+[LOG_CAT_ML] You must specify a valid HCA device by setting:
+-x HCOLL_MAIN_IB=<dev_name:port> or -x UCX_NET_DEVICES=<dev_name:port>.
+If no device was specified for HCOLL (or the calling library), automatic device detection will be run.
+In case of unfounded HCA device please contact your system administrator.
+[nccl-all-reduce-1-node-4gpu-worker-0:00311] Error: ../../../../../ompi/mca/coll/hcoll/coll_hcoll_module.c:310 - mca_coll_hcoll_comm_query() Hcol library init failed
+# nccl-tests version 2.18.3 nccl-headers=22903 nccl-library=22903
+# Collective test starting: all_reduce_perf_mpi
+# nThread 1 nGpus 1 minBytes 8388608 maxBytes 1073741824 step: 2(factor) warmup iters: 1 iters: 20 agg iters: 1 validation: 1 graph: 0 unalign: 0
+#
+# Using devices
+#  Rank  0 Group  0 Pid    310 on nccl-all-reduce-1-node-4gpu-worker-0 device  0 [0000:04:00] Tesla V100-SXM2-16GB
+#  Rank  1 Group  0 Pid    311 on nccl-all-reduce-1-node-4gpu-worker-0 device  1 [0000:08:00] Tesla V100-SXM2-16GB
+nccl-all-reduce-1-node-4gpu-worker-0:310:310 [0] NCCL INFO ENV/Plugin: Could not find: libnccl-env.so
+nccl-all-reduce-1-node-4gpu-worker-0:310:310 [0] NCCL INFO NCCL_SOCKET_IFNAME set to eth0
+nccl-all-reduce-1-node-4gpu-worker-0:310:310 [0] NCCL INFO cudaDriverVersion 13000
+nccl-all-reduce-1-node-4gpu-worker-0:310:310 [0] NCCL INFO NCCL version 2.29.3+cuda12.9
+nccl-all-reduce-1-node-4gpu-worker-0:310:310 [0] NCCL INFO NCCL git version stable dcf2a2fbe
+nccl-all-reduce-1-node-4gpu-worker-0:311:311 [1] NCCL INFO ENV/Plugin: Could not find: libnccl-env.so
+nccl-all-reduce-1-node-4gpu-worker-0:311:311 [1] NCCL INFO cudaDriverVersion 13000
+nccl-all-reduce-1-node-4gpu-worker-0:311:311 [1] NCCL INFO NCCL_SOCKET_IFNAME set to eth0
+nccl-all-reduce-1-node-4gpu-worker-0:311:311 [1] NCCL INFO NCCL version 2.29.3+cuda12.9
+nccl-all-reduce-1-node-4gpu-worker-0:311:311 [1] NCCL INFO NCCL git version stable dcf2a2fbe
+nccl-all-reduce-1-node-4gpu-worker-0:310:310 [0] NCCL INFO NCCL_NET_PLUGIN set by environment to none
+nccl-all-reduce-1-node-4gpu-worker-0:310:310 [0] NCCL INFO transport/net_ib/init.cc:370 -> 3
+nccl-all-reduce-1-node-4gpu-worker-0:310:310 [0] NCCL INFO Failed to initialize NET plugin IB
+nccl-all-reduce-1-node-4gpu-worker-0:310:310 [0] NCCL INFO NET/Socket : Using [0]eth0:10.42.1.240<0>
+nccl-all-reduce-1-node-4gpu-worker-0:310:310 [0] NCCL INFO Initialized NET plugin Socket
+nccl-all-reduce-1-node-4gpu-worker-0:310:310 [0] NCCL INFO Assigned NET plugin Socket to comm
+nccl-all-reduce-1-node-4gpu-worker-0:310:310 [0] NCCL INFO Using network Socket
+nccl-all-reduce-1-node-4gpu-worker-0:311:311 [1] NCCL INFO NCCL_NET_PLUGIN set by environment to none
+nccl-all-reduce-1-node-4gpu-worker-0:311:311 [1] NCCL INFO transport/net_ib/init.cc:370 -> 3
+nccl-all-reduce-1-node-4gpu-worker-0:311:311 [1] NCCL INFO Failed to initialize NET plugin IB
+nccl-all-reduce-1-node-4gpu-worker-0:311:311 [1] NCCL INFO NET/Socket : Using [0]eth0:10.42.1.240<0>
+nccl-all-reduce-1-node-4gpu-worker-0:311:311 [1] NCCL INFO Initialized NET plugin Socket
+nccl-all-reduce-1-node-4gpu-worker-0:311:311 [1] NCCL INFO Assigned NET plugin Socket to comm
+nccl-all-reduce-1-node-4gpu-worker-0:311:311 [1] NCCL INFO Using network Socket
+nccl-all-reduce-1-node-4gpu-worker-0:310:310 [0] NCCL INFO [Rank 0] ncclCommInitRankConfig comm 0x92cfba0 rank 0 nranks 2 cudaDev 0 nvmlDev 1 busId 4000 commId 0x2651a8bbd3819f0e - Init START
+nccl-all-reduce-1-node-4gpu-worker-0:311:311 [1] NCCL INFO [Rank 1] ncclCommInitRankConfig comm 0x391cf1f0 rank 1 nranks 2 cudaDev 1 nvmlDev 3 busId 8000 commId 0x2651a8bbd3819f0e - Init START
+nccl-all-reduce-1-node-4gpu-worker-0:311:311 [1] NCCL INFO RAS client listening socket at ::1<28028>
+nccl-all-reduce-1-node-4gpu-worker-0:310:310 [0] NCCL INFO RAS client listening socket at ::1<28028>
+nccl-all-reduce-1-node-4gpu-worker-0:311:311 [1] NCCL INFO NET/Socket : GPU Direct RDMA Disabled for HCA 0 'eth0'
+nccl-all-reduce-1-node-4gpu-worker-0:310:310 [0] NCCL INFO NET/Socket : GPU Direct RDMA Disabled for HCA 0 'eth0'
+nccl-all-reduce-1-node-4gpu-worker-0:310:310 [0] NCCL INFO ncclTopoGetCpuAffinity: Affinity for GPU 1 is empty, ignoring. (GPU affinity =  ; CPU affinity = 0-7).
+nccl-all-reduce-1-node-4gpu-worker-0:310:310 [0] NCCL INFO NVLS multicast support is not available on dev 0 (NVLS_NCHANNELS 0)
+nccl-all-reduce-1-node-4gpu-worker-0:311:311 [1] NCCL INFO ncclTopoGetCpuAffinity: Affinity for GPU 3 is empty, ignoring. (GPU affinity =  ; CPU affinity = 0-7).
+nccl-all-reduce-1-node-4gpu-worker-0:311:311 [1] NCCL INFO NVLS multicast support is not available on dev 1 (NVLS_NCHANNELS 0)
+nccl-all-reduce-1-node-4gpu-worker-0:310:310 [0] NCCL INFO comm 0x92cfba0 rank 0 nRanks 2 nNodes 1 localRanks 2 localRank 0 MNNVL 0
+nccl-all-reduce-1-node-4gpu-worker-0:310:310 [0] NCCL INFO Channel 00/12 : 0 1
+nccl-all-reduce-1-node-4gpu-worker-0:310:310 [0] NCCL INFO Channel 01/12 : 0 1
+nccl-all-reduce-1-node-4gpu-worker-0:310:310 [0] NCCL INFO Channel 02/12 : 0 1
+nccl-all-reduce-1-node-4gpu-worker-0:310:310 [0] NCCL INFO Channel 03/12 : 0 1
+nccl-all-reduce-1-node-4gpu-worker-0:310:310 [0] NCCL INFO Channel 04/12 : 0 1
+nccl-all-reduce-1-node-4gpu-worker-0:310:310 [0] NCCL INFO Channel 05/12 : 0 1
+nccl-all-reduce-1-node-4gpu-worker-0:310:310 [0] NCCL INFO Channel 06/12 : 0 1
+nccl-all-reduce-1-node-4gpu-worker-0:310:310 [0] NCCL INFO Channel 07/12 : 0 1
+nccl-all-reduce-1-node-4gpu-worker-0:311:311 [1] NCCL INFO comm 0x391cf1f0 rank 1 nRanks 2 nNodes 1 localRanks 2 localRank 1 MNNVL 0
+nccl-all-reduce-1-node-4gpu-worker-0:311:311 [1] NCCL INFO Trees [0] -1/-1/-1->1->0 [1] -1/-1/-1->1->0 [2] -1/-1/-1->1->0 [3] 0/-1/-1->1->-1 [4] 0/-1/-1->1->-1 [5] 0/-1/-1->1->-1 [6] -1/-1/-1->1->0 [7] -1/-1/-1->1->0 [8] -1/-1/-1->1->0 [9] 0/-1/-1->1->-1 [10] 0/-1/-1->1->-1 [11] 0/-1/-1->1->-1
+nccl-all-reduce-1-node-4gpu-worker-0:311:311 [1] NCCL INFO P2P Chunksize set to 524288
+nccl-all-reduce-1-node-4gpu-worker-0:310:310 [0] NCCL INFO Channel 08/12 : 0 1
+nccl-all-reduce-1-node-4gpu-worker-0:310:310 [0] NCCL INFO Channel 09/12 : 0 1
+nccl-all-reduce-1-node-4gpu-worker-0:310:310 [0] NCCL INFO Channel 10/12 : 0 1
+nccl-all-reduce-1-node-4gpu-worker-0:310:310 [0] NCCL INFO Channel 11/12 : 0 1
+nccl-all-reduce-1-node-4gpu-worker-0:310:310 [0] NCCL INFO Trees [0] 1/-1/-1->0->-1 [1] 1/-1/-1->0->-1 [2] 1/-1/-1->0->-1 [3] -1/-1/-1->0->1 [4] -1/-1/-1->0->1 [5] -1/-1/-1->0->1 [6] 1/-1/-1->0->-1 [7] 1/-1/-1->0->-1 [8] 1/-1/-1->0->-1 [9] -1/-1/-1->0->1 [10] -1/-1/-1->0->1 [11] -1/-1/-1->0->1
+nccl-all-reduce-1-node-4gpu-worker-0:310:310 [0] NCCL INFO P2P Chunksize set to 524288
+nccl-all-reduce-1-node-4gpu-worker-0:311:311 [1] NCCL INFO PROFILER/Plugin: Could not find: libnccl-profiler.so
+nccl-all-reduce-1-node-4gpu-worker-0:311:311 [1] NCCL INFO Check P2P Type isAllDirectP2p 1 directMode 0 isAllCudaP2p 1
+nccl-all-reduce-1-node-4gpu-worker-0:310:310 [0] NCCL INFO PROFILER/Plugin: Could not find: libnccl-profiler.so
+nccl-all-reduce-1-node-4gpu-worker-0:310:310 [0] NCCL INFO Check P2P Type isAllDirectP2p 1 directMode 0 isAllCudaP2p 1
+nccl-all-reduce-1-node-4gpu-worker-0:311:327 [0] NCCL INFO [Proxy Service] Device 1 CPU core 4
+nccl-all-reduce-1-node-4gpu-worker-0:310:328 [0] NCCL INFO [Proxy Service] Device 0 CPU core 0
+nccl-all-reduce-1-node-4gpu-worker-0:310:329 [0] NCCL INFO [Proxy Service UDS] Device 0 CPU core 5
+nccl-all-reduce-1-node-4gpu-worker-0:311:330 [0] NCCL INFO [Proxy Service UDS] Device 1 CPU core 2
+nccl-all-reduce-1-node-4gpu-worker-0:311:311 [1] NCCL INFO TUNER/Plugin: Could not find: libnccl-tuner.so
+nccl-all-reduce-1-node-4gpu-worker-0:311:311 [1] NCCL INFO threadThresholds 8/8/64 | 16/8/64 | 512 | 512
+nccl-all-reduce-1-node-4gpu-worker-0:311:311 [1] NCCL INFO 12 coll channels, 12 collnet channels, 0 nvls channels, 16 p2p channels, 16 p2p channels per peer
+nccl-all-reduce-1-node-4gpu-worker-0:310:310 [0] NCCL INFO TUNER/Plugin: Could not find: libnccl-tuner.so
+nccl-all-reduce-1-node-4gpu-worker-0:310:310 [0] NCCL INFO threadThresholds 8/8/64 | 16/8/64 | 512 | 512
+nccl-all-reduce-1-node-4gpu-worker-0:310:310 [0] NCCL INFO 12 coll channels, 12 collnet channels, 0 nvls channels, 16 p2p channels, 16 p2p channels per peer
+nccl-all-reduce-1-node-4gpu-worker-0:310:310 [0] NCCL INFO CC Off, workFifoBytes 1048576
+nccl-all-reduce-1-node-4gpu-worker-0:311:311 [1] NCCL INFO ncclCommInitRankConfig comm 0x391cf1f0 rank 1 nranks 2 cudaDev 1 nvmlDev 3 busId 8000 commId 0x2651a8bbd3819f0e - Init COMPLETE
+nccl-all-reduce-1-node-4gpu-worker-0:311:311 [1] NCCL INFO Init timings - ncclCommInitRankConfig: rank 1 nranks 2 total 0.16 (kernels 0.12, alloc 0.02, bootstrap 0.00, allgathers 0.00, topo 0.01, graphs 0.00, connections 0.01, rest 0.00)
+nccl-all-reduce-1-node-4gpu-worker-0:310:310 [0] NCCL INFO ncclCommInitRankConfig comm 0x92cfba0 rank 0 nranks 2 cudaDev 0 nvmlDev 1 busId 4000 commId 0x2651a8bbd3819f0e - Init COMPLETE
+nccl-all-reduce-1-node-4gpu-worker-0:310:310 [0] NCCL INFO Init timings - ncclCommInitRankConfig: rank 0 nranks 2 total 0.16 (kernels 0.12, alloc 0.02, bootstrap 0.00, allgathers 0.00, topo 0.01, graphs 0.00, connections 0.01, rest 0.00)
+#
+#                                                              out-of-place                       in-place          
+#       size         count      type   redop    root     time   algbw   busbw  #wrong     time   algbw   busbw  #wrong 
+#        (B)    (elements)                               (us)  (GB/s)  (GB/s)             (us)  (GB/s)  (GB/s)         
+nccl-all-reduce-1-node-4gpu-worker-0:310:310 [0] NCCL INFO Symmetric VA size=16GB
+nccl-all-reduce-1-node-4gpu-worker-0:311:311 [1] NCCL INFO Symmetric VA size=16GB
+nccl-all-reduce-1-node-4gpu-worker-0:311:327 [1] NCCL INFO New proxy recv connection 0 from local rank 1, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:310:328 [0] NCCL INFO New proxy recv connection 0 from local rank 0, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:310:310 [0] NCCL INFO Connected to proxy localRank 0 -> connection 0x75508c000d20
+nccl-all-reduce-1-node-4gpu-worker-0:311:311 [1] NCCL INFO Connected to proxy localRank 1 -> connection 0x7349b4000d20
+nccl-all-reduce-1-node-4gpu-worker-0:311:327 [1] NCCL INFO New proxy recv connection 1 from local rank 1, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:311:311 [1] NCCL INFO Connected to proxy localRank 1 -> connection 0x7349b4000d98
+nccl-all-reduce-1-node-4gpu-worker-0:310:328 [0] NCCL INFO New proxy recv connection 1 from local rank 0, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:310:310 [0] NCCL INFO Connected to proxy localRank 0 -> connection 0x75508c000d98
+nccl-all-reduce-1-node-4gpu-worker-0:310:328 [0] NCCL INFO New proxy recv connection 2 from local rank 0, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:310:310 [0] NCCL INFO Connected to proxy localRank 0 -> connection 0x75508c000e10
+nccl-all-reduce-1-node-4gpu-worker-0:311:327 [1] NCCL INFO New proxy recv connection 2 from local rank 1, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:311:311 [1] NCCL INFO Connected to proxy localRank 1 -> connection 0x7349b4000e10
+nccl-all-reduce-1-node-4gpu-worker-0:310:328 [0] NCCL INFO New proxy recv connection 3 from local rank 0, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:310:310 [0] NCCL INFO Connected to proxy localRank 0 -> connection 0x75508c000e88
+nccl-all-reduce-1-node-4gpu-worker-0:311:327 [1] NCCL INFO New proxy recv connection 3 from local rank 1, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:311:311 [1] NCCL INFO Connected to proxy localRank 1 -> connection 0x7349b4000e88
+nccl-all-reduce-1-node-4gpu-worker-0:310:328 [0] NCCL INFO New proxy recv connection 4 from local rank 0, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:310:310 [0] NCCL INFO Connected to proxy localRank 0 -> connection 0x75508c000f00
+nccl-all-reduce-1-node-4gpu-worker-0:311:327 [1] NCCL INFO New proxy recv connection 4 from local rank 1, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:311:311 [1] NCCL INFO Connected to proxy localRank 1 -> connection 0x7349b4000f00
+nccl-all-reduce-1-node-4gpu-worker-0:310:328 [0] NCCL INFO New proxy recv connection 5 from local rank 0, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:310:310 [0] NCCL INFO Connected to proxy localRank 0 -> connection 0x75508c000f78
+nccl-all-reduce-1-node-4gpu-worker-0:310:328 [0] NCCL INFO New proxy recv connection 6 from local rank 0, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:310:310 [0] NCCL INFO Connected to proxy localRank 0 -> connection 0x75508c000ff0
+nccl-all-reduce-1-node-4gpu-worker-0:311:327 [1] NCCL INFO New proxy recv connection 5 from local rank 1, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:311:311 [1] NCCL INFO Connected to proxy localRank 1 -> connection 0x7349b4000f78
+nccl-all-reduce-1-node-4gpu-worker-0:310:328 [0] NCCL INFO New proxy recv connection 7 from local rank 0, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:310:310 [0] NCCL INFO Connected to proxy localRank 0 -> connection 0x75508c001068
+nccl-all-reduce-1-node-4gpu-worker-0:311:327 [1] NCCL INFO New proxy recv connection 6 from local rank 1, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:311:311 [1] NCCL INFO Connected to proxy localRank 1 -> connection 0x7349b4000ff0
+nccl-all-reduce-1-node-4gpu-worker-0:310:328 [0] NCCL INFO New proxy recv connection 8 from local rank 0, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:310:310 [0] NCCL INFO Connected to proxy localRank 0 -> connection 0x75508c0010e0
+nccl-all-reduce-1-node-4gpu-worker-0:311:327 [1] NCCL INFO New proxy recv connection 7 from local rank 1, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:311:311 [1] NCCL INFO Connected to proxy localRank 1 -> connection 0x7349b4001068
+nccl-all-reduce-1-node-4gpu-worker-0:310:328 [0] NCCL INFO New proxy recv connection 9 from local rank 0, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:310:310 [0] NCCL INFO Connected to proxy localRank 0 -> connection 0x75508c001158
+nccl-all-reduce-1-node-4gpu-worker-0:311:327 [1] NCCL INFO New proxy recv connection 8 from local rank 1, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:311:311 [1] NCCL INFO Connected to proxy localRank 1 -> connection 0x7349b40010e0
+nccl-all-reduce-1-node-4gpu-worker-0:310:328 [0] NCCL INFO New proxy recv connection 10 from local rank 0, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:310:310 [0] NCCL INFO Connected to proxy localRank 0 -> connection 0x75508c0011d0
+nccl-all-reduce-1-node-4gpu-worker-0:311:327 [1] NCCL INFO New proxy recv connection 9 from local rank 1, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:311:311 [1] NCCL INFO Connected to proxy localRank 1 -> connection 0x7349b4001158
+nccl-all-reduce-1-node-4gpu-worker-0:310:328 [0] NCCL INFO New proxy recv connection 11 from local rank 0, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:310:310 [0] NCCL INFO Connected to proxy localRank 0 -> connection 0x75508c001248
+nccl-all-reduce-1-node-4gpu-worker-0:311:327 [1] NCCL INFO New proxy recv connection 10 from local rank 1, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:310:310 [0] NCCL INFO Channel 00/0 : 0[1] -> 1[3] via P2P/CUMEM
+nccl-all-reduce-1-node-4gpu-worker-0:311:311 [1] NCCL INFO Connected to proxy localRank 1 -> connection 0x7349b40011d0
+nccl-all-reduce-1-node-4gpu-worker-0:310:328 [0] NCCL INFO New proxy send connection 12 from local rank 0, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:310:310 [0] NCCL INFO Connected to proxy localRank 0 -> connection 0x75508c0012c0
+nccl-all-reduce-1-node-4gpu-worker-0:310:310 [0] NCCL INFO Channel 01/0 : 0[1] -> 1[3] via P2P/CUMEM
+nccl-all-reduce-1-node-4gpu-worker-0:310:328 [0] NCCL INFO New proxy send connection 13 from local rank 0, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:310:310 [0] NCCL INFO Connected to proxy localRank 0 -> connection 0x75508c001338
+nccl-all-reduce-1-node-4gpu-worker-0:311:327 [1] NCCL INFO New proxy recv connection 11 from local rank 1, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:311:311 [1] NCCL INFO Connected to proxy localRank 1 -> connection 0x7349b4001248
+nccl-all-reduce-1-node-4gpu-worker-0:311:311 [1] NCCL INFO Channel 00/0 : 1[3] -> 0[1] via P2P/CUMEM
+nccl-all-reduce-1-node-4gpu-worker-0:310:310 [0] NCCL INFO Channel 02/0 : 0[1] -> 1[3] via P2P/CUMEM
+nccl-all-reduce-1-node-4gpu-worker-0:311:327 [1] NCCL INFO New proxy send connection 12 from local rank 1, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:311:311 [1] NCCL INFO Connected to proxy localRank 1 -> connection 0x7349b40012c0
+nccl-all-reduce-1-node-4gpu-worker-0:310:328 [0] NCCL INFO New proxy send connection 14 from local rank 0, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:310:310 [0] NCCL INFO Connected to proxy localRank 0 -> connection 0x75508c0013b0
+nccl-all-reduce-1-node-4gpu-worker-0:310:310 [0] NCCL INFO Channel 03/0 : 0[1] -> 1[3] via P2P/CUMEM
+nccl-all-reduce-1-node-4gpu-worker-0:310:328 [0] NCCL INFO New proxy send connection 15 from local rank 0, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:310:310 [0] NCCL INFO Connected to proxy localRank 0 -> connection 0x75508c001428
+nccl-all-reduce-1-node-4gpu-worker-0:311:311 [1] NCCL INFO Channel 01/0 : 1[3] -> 0[1] via P2P/CUMEM
+nccl-all-reduce-1-node-4gpu-worker-0:311:327 [1] NCCL INFO New proxy send connection 13 from local rank 1, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:311:311 [1] NCCL INFO Connected to proxy localRank 1 -> connection 0x7349b4001338
+nccl-all-reduce-1-node-4gpu-worker-0:310:310 [0] NCCL INFO Channel 04/0 : 0[1] -> 1[3] via P2P/CUMEM
+nccl-all-reduce-1-node-4gpu-worker-0:310:328 [0] NCCL INFO New proxy send connection 16 from local rank 0, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:310:310 [0] NCCL INFO Connected to proxy localRank 0 -> connection 0x75508c0014a0
+nccl-all-reduce-1-node-4gpu-worker-0:311:311 [1] NCCL INFO Channel 02/0 : 1[3] -> 0[1] via P2P/CUMEM
+nccl-all-reduce-1-node-4gpu-worker-0:311:327 [1] NCCL INFO New proxy send connection 14 from local rank 1, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:311:311 [1] NCCL INFO Connected to proxy localRank 1 -> connection 0x7349b40013b0
+nccl-all-reduce-1-node-4gpu-worker-0:310:310 [0] NCCL INFO Channel 05/0 : 0[1] -> 1[3] via P2P/CUMEM
+nccl-all-reduce-1-node-4gpu-worker-0:310:328 [0] NCCL INFO New proxy send connection 17 from local rank 0, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:310:310 [0] NCCL INFO Connected to proxy localRank 0 -> connection 0x75508c001518
+nccl-all-reduce-1-node-4gpu-worker-0:311:311 [1] NCCL INFO Channel 03/0 : 1[3] -> 0[1] via P2P/CUMEM
+nccl-all-reduce-1-node-4gpu-worker-0:311:327 [1] NCCL INFO New proxy send connection 15 from local rank 1, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:311:311 [1] NCCL INFO Connected to proxy localRank 1 -> connection 0x7349b4001428
+nccl-all-reduce-1-node-4gpu-worker-0:310:310 [0] NCCL INFO Channel 06/0 : 0[1] -> 1[3] via P2P/CUMEM
+nccl-all-reduce-1-node-4gpu-worker-0:310:328 [0] NCCL INFO New proxy send connection 18 from local rank 0, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:310:310 [0] NCCL INFO Connected to proxy localRank 0 -> connection 0x75508c001590
+nccl-all-reduce-1-node-4gpu-worker-0:311:311 [1] NCCL INFO Channel 04/0 : 1[3] -> 0[1] via P2P/CUMEM
+nccl-all-reduce-1-node-4gpu-worker-0:311:327 [1] NCCL INFO New proxy send connection 16 from local rank 1, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:311:311 [1] NCCL INFO Connected to proxy localRank 1 -> connection 0x7349b40014a0
+nccl-all-reduce-1-node-4gpu-worker-0:310:310 [0] NCCL INFO Channel 07/0 : 0[1] -> 1[3] via P2P/CUMEM
+nccl-all-reduce-1-node-4gpu-worker-0:310:328 [0] NCCL INFO New proxy send connection 19 from local rank 0, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:310:310 [0] NCCL INFO Connected to proxy localRank 0 -> connection 0x75508c001608
+nccl-all-reduce-1-node-4gpu-worker-0:311:311 [1] NCCL INFO Channel 05/0 : 1[3] -> 0[1] via P2P/CUMEM
+nccl-all-reduce-1-node-4gpu-worker-0:311:327 [1] NCCL INFO New proxy send connection 17 from local rank 1, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:311:311 [1] NCCL INFO Connected to proxy localRank 1 -> connection 0x7349b4001518
+nccl-all-reduce-1-node-4gpu-worker-0:310:310 [0] NCCL INFO Channel 08/0 : 0[1] -> 1[3] via P2P/CUMEM
+nccl-all-reduce-1-node-4gpu-worker-0:310:328 [0] NCCL INFO New proxy send connection 20 from local rank 0, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:310:310 [0] NCCL INFO Connected to proxy localRank 0 -> connection 0x75508c001680
+nccl-all-reduce-1-node-4gpu-worker-0:311:311 [1] NCCL INFO Channel 06/0 : 1[3] -> 0[1] via P2P/CUMEM
+nccl-all-reduce-1-node-4gpu-worker-0:311:327 [1] NCCL INFO New proxy send connection 18 from local rank 1, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:311:311 [1] NCCL INFO Connected to proxy localRank 1 -> connection 0x7349b4001590
+nccl-all-reduce-1-node-4gpu-worker-0:310:310 [0] NCCL INFO Channel 09/0 : 0[1] -> 1[3] via P2P/CUMEM
+nccl-all-reduce-1-node-4gpu-worker-0:310:328 [0] NCCL INFO New proxy send connection 21 from local rank 0, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:310:310 [0] NCCL INFO Connected to proxy localRank 0 -> connection 0x75508c0016f8
+nccl-all-reduce-1-node-4gpu-worker-0:311:311 [1] NCCL INFO Channel 07/0 : 1[3] -> 0[1] via P2P/CUMEM
+nccl-all-reduce-1-node-4gpu-worker-0:311:327 [1] NCCL INFO New proxy send connection 19 from local rank 1, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:311:311 [1] NCCL INFO Connected to proxy localRank 1 -> connection 0x7349b4001608
+nccl-all-reduce-1-node-4gpu-worker-0:310:310 [0] NCCL INFO Channel 10/0 : 0[1] -> 1[3] via P2P/CUMEM
+nccl-all-reduce-1-node-4gpu-worker-0:310:328 [0] NCCL INFO New proxy send connection 22 from local rank 0, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:310:310 [0] NCCL INFO Connected to proxy localRank 0 -> connection 0x75508c001770
+nccl-all-reduce-1-node-4gpu-worker-0:311:311 [1] NCCL INFO Channel 08/0 : 1[3] -> 0[1] via P2P/CUMEM
+nccl-all-reduce-1-node-4gpu-worker-0:311:327 [1] NCCL INFO New proxy send connection 20 from local rank 1, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:311:311 [1] NCCL INFO Connected to proxy localRank 1 -> connection 0x7349b4001680
+nccl-all-reduce-1-node-4gpu-worker-0:310:310 [0] NCCL INFO Channel 11/0 : 0[1] -> 1[3] via P2P/CUMEM
+nccl-all-reduce-1-node-4gpu-worker-0:310:328 [0] NCCL INFO New proxy send connection 23 from local rank 0, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:310:310 [0] NCCL INFO Connected to proxy localRank 0 -> connection 0x75508c0017e8
+nccl-all-reduce-1-node-4gpu-worker-0:311:311 [1] NCCL INFO Channel 09/0 : 1[3] -> 0[1] via P2P/CUMEM
+nccl-all-reduce-1-node-4gpu-worker-0:311:327 [1] NCCL INFO New proxy send connection 21 from local rank 1, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:311:311 [1] NCCL INFO Connected to proxy localRank 1 -> connection 0x7349b40016f8
+nccl-all-reduce-1-node-4gpu-worker-0:311:311 [1] NCCL INFO Channel 10/0 : 1[3] -> 0[1] via P2P/CUMEM
+nccl-all-reduce-1-node-4gpu-worker-0:311:327 [1] NCCL INFO New proxy send connection 22 from local rank 1, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:311:311 [1] NCCL INFO Connected to proxy localRank 1 -> connection 0x7349b4001770
+nccl-all-reduce-1-node-4gpu-worker-0:311:311 [1] NCCL INFO Channel 11/0 : 1[3] -> 0[1] via P2P/CUMEM
+nccl-all-reduce-1-node-4gpu-worker-0:311:327 [1] NCCL INFO New proxy send connection 23 from local rank 1, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:311:311 [1] NCCL INFO Connected to proxy localRank 1 -> connection 0x7349b40017e8
+nccl-all-reduce-1-node-4gpu-worker-0:310:328 [0] NCCL INFO New proxy send connection 24 from local rank 1, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:311:327 [1] NCCL INFO New proxy send connection 24 from local rank 0, transport 0
+nccl-all-reduce-1-node-4gpu-worker-0:311:311 [1] NCCL INFO Connected to proxy localRank 0 -> connection 0x75508c001860
+nccl-all-reduce-1-node-4gpu-worker-0:310:310 [0] NCCL INFO Connected to proxy localRank 1 -> connection 0x7349b4001860
+nccl-all-reduce-1-node-4gpu-worker-0:310:310 [0] NCCL INFO Connected all rings, use ring PXN 0 GDR 1
+nccl-all-reduce-1-node-4gpu-worker-0:311:311 [1] NCCL INFO Connected all rings, use ring PXN 0 GDR 1
+     8388608       2097152     float     sum      -1   123.57   67.88   67.88       0   124.16   67.56   67.56       0
+    16777216       4194304     float     sum      -1   202.20   82.97   82.97       0   204.59   82.00   82.00       0
+    33554432       8388608     float     sum      -1   361.95   92.71   92.71       0   357.54   93.85   93.85       0
+    67108864      16777216     float     sum      -1   671.92   99.88   99.88       0   669.43  100.25  100.25       0
+   134217728      33554432     float     sum      -1  1272.78  105.45  105.45       0  1278.40  104.99  104.99       0
+   268435456      67108864     float     sum      -1  2490.53  107.78  107.78       0  2502.85  107.25  107.25       0
+   536870912     134217728     float     sum      -1  4815.54  111.49  111.49       0  4822.68  111.32  111.32       0
+  1073741824     268435456     float     sum      -1  9256.04  116.00  116.00       0  9318.54  115.23  115.23       0
+nccl-all-reduce-1-node-4gpu-worker-0:311:311 [1] NCCL INFO comm 0x391cf1f0 rank 1 nranks 2 cudaDev 1 busId 8000 - Destroy COMPLETE
+nccl-all-reduce-1-node-4gpu-worker-0:310:310 [0] NCCL INFO comm 0x92cfba0 rank 0 nranks 2 cudaDev 0 busId 4000 - Destroy COMPLETE
+# Out of bounds values : 0 OK
+# Avg bus bandwidth    : 97.9135 
+#
+# Collective test concluded: all_reduce_perf_mpi
+#
+
+nccl-all-reduce-1-node-4gpu-worker-0:310:310 [0] NCCL INFO ENV/Plugin: Closing env plugin ncclEnvDefault
+nccl-all-reduce-1-node-4gpu-worker-0:311:311 [1] NCCL INFO ENV/Plugin: Closing env plugin ncclEnvDefault

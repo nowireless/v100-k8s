@@ -861,3 +861,9 @@ for dev in 03:08.0 03:09.0 03:10.0 03:11.0; do
   sudo setpci -s "$dev" f2a.w=0000
 done
 ```
+
+## Workloads
+
+### Comfy UI
+
+- Need to use pytorch with cuda 12.6

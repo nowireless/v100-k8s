@@ -1,0 +1,18 @@
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMAgent
+metadata:
+  # You may change the name of the vmagent service here
+  name: vmagent-hpc
+spec:
+  serviceScrapeNamespaceSelector: {}
+  podScrapeNamespaceSelector: {}
+  podScrapeSelector: {}
+  serviceScrapeSelector: {}
+  nodeScrapeSelector: {}
+  nodeScrapeNamespaceSelector: {}
+  staticScrapeSelector: {}
+  staticScrapeNamespaceSelector: {}
+  replicaCount: 1
+  remoteWrite:
+    # url must be "http://<service-name>.<namespace>.svc.cluster.local:<port-number>/insert/0/prometheus/api/v1/write"
+    - url: "http://vminsert-vmcluster-hpc.observability-system.svc.cluster.local:8480/insert/0/prometheus/api/v1/write"
